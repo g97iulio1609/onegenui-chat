@@ -1,0 +1,67 @@
+{
+    "name": "@onegenui/chat",
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "AI Chat component for OneGenUI - Beautiful, responsive chat interface with streaming support",
+    "keywords": [
+        "react",
+        "chat",
+        "ai",
+        "streaming",
+        "ui",
+        "onegenui",
+        "generative-ui"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/g97iulio1609/Oneui-generate.git",
+        "directory": "packages/chat"
+    },
+    "homepage": "https://github.com/g97iulio1609/Oneui-generate#readme",
+    "bugs": {
+        "url": "https://github.com/g97iulio1609/Oneui-generate/issues"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "main": "./dist/index.js",
+    "module": "./dist/index.mjs",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "typecheck": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@onegenui/react": "workspace:*",
+        "@onegenui/utils": "workspace:^",
+        "clsx": "^2.1.1",
+        "framer-motion": "^12.26.2",
+        "lucide-react": "^0.468.0",
+        "react-markdown": "^10.1.0",
+        "remark-gfm": "^4.0.1",
+        "tailwind-merge": "^3.4.0",
+        "zod": "^3.24.0"
+    },
+    "devDependencies": {
+        "@repo/typescript-config": "workspace:*",
+        "@types/react": "19.2.3",
+        "@types/react-dom": "19.1.6",
+        "tsup": "^8.0.2",
+        "typescript": "^5.4.5"
+    },
+    "peerDependencies": {
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0"
+    }
+}
