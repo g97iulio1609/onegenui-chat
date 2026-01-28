@@ -1,23 +1,22 @@
 
-
 > @onegenui/chat@0.1.0 build /Users/giulioleone/Sviluppo/genUi/json-render/packages/chat
 > tsup
 
-[34mCLI[39m Building entry: src/index.ts
-[34mCLI[39m Using tsconfig: tsconfig.json
-[34mCLI[39m tsup v8.5.1
-[34mCLI[39m Using tsup config: /Users/giulioleone/Sviluppo/genUi/json-render/packages/chat/tsup.config.ts
-[34mCLI[39m Target: es2022
-[34mCLI[39m Cleaning output folder
-[34mCJS[39m Build start
-[34mESM[39m Build start
-[32mCJS[39m [1mdist/index.js     [22m[32m121.36 KB[39m
-[32mCJS[39m [1mdist/index.js.map [22m[32m191.19 KB[39m
-[32mCJS[39m ⚡️ Build success in 47ms
-[32mESM[39m [1mdist/index.mjs     [22m[32m109.21 KB[39m
-[32mESM[39m [1mdist/index.mjs.map [22m[32m191.38 KB[39m
-[32mESM[39m ⚡️ Build success in 47ms
+CLI Building entry: src/index.ts
+CLI Using tsconfig: tsconfig.json
+CLI tsup v8.5.1
+CLI Using tsup config: /Users/giulioleone/Sviluppo/genUi/json-render/packages/chat/tsup.config.ts
+CLI Target: es2022
+CLI Cleaning output folder
+CJS Build start
+ESM Build start
+ESM dist/index.mjs     109.21 KB
+ESM dist/index.mjs.map 191.38 KB
+ESM ⚡️ Build success in 99ms
+CJS dist/index.js     121.36 KB
+CJS dist/index.js.map 191.19 KB
+CJS ⚡️ Build success in 99ms
 DTS Build start
-DTS ⚡️ Build success in 1401ms
+DTS ⚡️ Build success in 1289ms
 DTS dist/index.d.ts  41.16 KB
 DTS dist/index.d.mts 41.16 KB
