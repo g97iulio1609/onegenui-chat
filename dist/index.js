@@ -3166,11 +3166,13 @@ function ActionMenu({
   isOpen,
   onClose,
   onOpenSettings,
-  onToggleCanvasMode,
+  onToggleCopilotMode,
   onToggleHideMessages,
   onClear,
   canClear,
-  messagesMode = "default"
+  messagesMode = "default",
+  isDocumentEditorEnabled = false,
+  onToggleDocumentEditor
 }) {
   const menuRef = (0, import_react17.useRef)(null);
   (0, import_react17.useEffect)(() => {
@@ -3210,20 +3212,37 @@ function ActionMenu({
             ]
           }
         ),
-        onToggleCanvasMode && /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+        onToggleDocumentEditor && /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
           "button",
           {
             onClick: () => {
-              onToggleCanvasMode();
+              onToggleDocumentEditor();
               onClose();
             },
             className: (0, import_utils.cn)(
               "flex items-center gap-3 px-3 py-2.5 text-[14px] rounded-lg transition-colors w-full text-left bg-transparent border-none cursor-pointer",
-              messagesMode === "canvas" ? "text-primary bg-primary/10" : "text-foreground hover:bg-white/5"
+              isDocumentEditorEnabled ? "text-primary bg-primary/10" : "text-foreground hover:bg-white/5"
             ),
             children: [
-              messagesMode === "canvas" ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.PanelRightClose, { size: 16 }) : /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.PanelRightOpen, { size: 16 }),
-              messagesMode === "canvas" ? "Close Canvas" : "Open Canvas"
+              /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.FileEdit, { size: 16 }),
+              isDocumentEditorEnabled ? "Close Document Editor" : "Open Document Editor"
+            ]
+          }
+        ),
+        onToggleCopilotMode && /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+          "button",
+          {
+            onClick: () => {
+              onToggleCopilotMode();
+              onClose();
+            },
+            className: (0, import_utils.cn)(
+              "flex items-center gap-3 px-3 py-2.5 text-[14px] rounded-lg transition-colors w-full text-left bg-transparent border-none cursor-pointer",
+              messagesMode === "copilot" ? "text-primary bg-primary/10" : "text-foreground hover:bg-white/5"
+            ),
+            children: [
+              messagesMode === "copilot" ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.PanelRightClose, { size: 16 }) : /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.PanelRightOpen, { size: 16 }),
+              messagesMode === "copilot" ? "Close Copilot Panel" : "Open Copilot Panel"
             ]
           }
         ),

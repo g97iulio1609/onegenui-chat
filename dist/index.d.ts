@@ -293,13 +293,15 @@ interface ActionMenuProps {
     isOpen: boolean;
     onClose: () => void;
     onOpenSettings?: () => void;
-    onToggleCanvasMode?: () => void;
+    onToggleCopilotMode?: () => void;
     onToggleHideMessages?: () => void;
     onClear?: () => void;
     canClear?: boolean;
-    messagesMode?: "hidden" | "canvas" | "default";
+    messagesMode?: "hidden" | "copilot" | "default";
+    isDocumentEditorEnabled?: boolean;
+    onToggleDocumentEditor?: () => void;
 }
-declare function ActionMenu({ isOpen, onClose, onOpenSettings, onToggleCanvasMode, onToggleHideMessages, onClear, canClear, messagesMode, }: ActionMenuProps): react_jsx_runtime.JSX.Element;
+declare function ActionMenu({ isOpen, onClose, onOpenSettings, onToggleCopilotMode, onToggleHideMessages, onClear, canClear, messagesMode, isDocumentEditorEnabled, onToggleDocumentEditor, }: ActionMenuProps): react_jsx_runtime.JSX.Element;
 
 interface ChatInputAreaProps {
     input: string;

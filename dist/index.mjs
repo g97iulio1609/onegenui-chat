@@ -3123,7 +3123,8 @@ import {
   PanelRightClose,
   Eye,
   EyeOff,
-  Trash2
+  Trash2,
+  FileEdit
 } from "lucide-react";
 import { AnimatePresence as AnimatePresence2, motion as motion2 } from "framer-motion";
 import { Fragment as Fragment4, jsx as jsx19, jsxs as jsxs16 } from "react/jsx-runtime";
@@ -3131,11 +3132,13 @@ function ActionMenu({
   isOpen,
   onClose,
   onOpenSettings,
-  onToggleCanvasMode,
+  onToggleCopilotMode,
   onToggleHideMessages,
   onClear,
   canClear,
-  messagesMode = "default"
+  messagesMode = "default",
+  isDocumentEditorEnabled = false,
+  onToggleDocumentEditor
 }) {
   const menuRef = useRef3(null);
   useEffect3(() => {
@@ -3175,20 +3178,37 @@ function ActionMenu({
             ]
           }
         ),
-        onToggleCanvasMode && /* @__PURE__ */ jsxs16(
+        onToggleDocumentEditor && /* @__PURE__ */ jsxs16(
           "button",
           {
             onClick: () => {
-              onToggleCanvasMode();
+              onToggleDocumentEditor();
               onClose();
             },
             className: cn(
               "flex items-center gap-3 px-3 py-2.5 text-[14px] rounded-lg transition-colors w-full text-left bg-transparent border-none cursor-pointer",
-              messagesMode === "canvas" ? "text-primary bg-primary/10" : "text-foreground hover:bg-white/5"
+              isDocumentEditorEnabled ? "text-primary bg-primary/10" : "text-foreground hover:bg-white/5"
             ),
             children: [
-              messagesMode === "canvas" ? /* @__PURE__ */ jsx19(PanelRightClose, { size: 16 }) : /* @__PURE__ */ jsx19(PanelRightOpen, { size: 16 }),
-              messagesMode === "canvas" ? "Close Canvas" : "Open Canvas"
+              /* @__PURE__ */ jsx19(FileEdit, { size: 16 }),
+              isDocumentEditorEnabled ? "Close Document Editor" : "Open Document Editor"
+            ]
+          }
+        ),
+        onToggleCopilotMode && /* @__PURE__ */ jsxs16(
+          "button",
+          {
+            onClick: () => {
+              onToggleCopilotMode();
+              onClose();
+            },
+            className: cn(
+              "flex items-center gap-3 px-3 py-2.5 text-[14px] rounded-lg transition-colors w-full text-left bg-transparent border-none cursor-pointer",
+              messagesMode === "copilot" ? "text-primary bg-primary/10" : "text-foreground hover:bg-white/5"
+            ),
+            children: [
+              messagesMode === "copilot" ? /* @__PURE__ */ jsx19(PanelRightClose, { size: 16 }) : /* @__PURE__ */ jsx19(PanelRightOpen, { size: 16 }),
+              messagesMode === "copilot" ? "Close Copilot Panel" : "Open Copilot Panel"
             ]
           }
         ),

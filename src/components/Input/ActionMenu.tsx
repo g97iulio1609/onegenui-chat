@@ -8,6 +8,7 @@ import {
   Eye,
   EyeOff,
   Trash2,
+  FileEdit,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "../../utils/cn";
@@ -16,22 +17,27 @@ export interface ActionMenuProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenSettings?: () => void;
-  onToggleCanvasMode?: () => void;
+  onToggleCopilotMode?: () => void;
   onToggleHideMessages?: () => void;
   onClear?: () => void;
   canClear?: boolean;
-  messagesMode?: "hidden" | "canvas" | "default";
+  messagesMode?: "hidden" | "copilot" | "default";
+  // Document Editor Canvas
+  isDocumentEditorEnabled?: boolean;
+  onToggleDocumentEditor?: () => void;
 }
 
 export function ActionMenu({
   isOpen,
   onClose,
   onOpenSettings,
-  onToggleCanvasMode,
+  onToggleCopilotMode,
   onToggleHideMessages,
   onClear,
   canClear,
   messagesMode = "default",
+  isDocumentEditorEnabled = false,
+  onToggleDocumentEditor,
 }: ActionMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -76,25 +82,47 @@ export function ActionMenu({
               </button>
             )}
 
-            {onToggleCanvasMode && (
+            {onToggleDocumentEditor && (
               <button
                 onClick={() => {
-                  onToggleCanvasMode();
+                  onToggleDocumentEditor();
                   onClose();
                 }}
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 text-[14px] rounded-lg transition-colors w-full text-left bg-transparent border-none cursor-pointer",
-                  messagesMode === "canvas"
+                  isDocumentEditorEnabled
                     ? "text-primary bg-primary/10"
                     : "text-foreground hover:bg-white/5",
                 )}
               >
-                {messagesMode === "canvas" ? (
+                <FileEdit size={16} />
+                {isDocumentEditorEnabled
+                  ? "Close Document Editor"
+                  : "Open Document Editor"}
+              </button>
+            )}
+
+            {onToggleCopilotMode && (
+              <button
+                onClick={() => {
+                  onToggleCopilotMode();
+                  onClose();
+                }}
+                className={cn(
+                  "flex items-center gap-3 px-3 py-2.5 text-[14px] rounded-lg transition-colors w-full text-left bg-transparent border-none cursor-pointer",
+                  messagesMode === "copilot"
+                    ? "text-primary bg-primary/10"
+                    : "text-foreground hover:bg-white/5",
+                )}
+              >
+                {messagesMode === "copilot" ? (
                   <PanelRightClose size={16} />
                 ) : (
                   <PanelRightOpen size={16} />
                 )}
-                {messagesMode === "canvas" ? "Close Canvas" : "Open Canvas"}
+                {messagesMode === "copilot"
+                  ? "Close Copilot Panel"
+                  : "Open Copilot Panel"}
               </button>
             )}
 
