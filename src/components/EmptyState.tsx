@@ -2,8 +2,8 @@
 
 import { memo } from "react";
 import { Sparkles } from "lucide-react";
+import { EmptyState as SharedEmptyState } from "@onegenui/components";
 import type { EmptyStateProps } from "../types";
-import { emptyStateStyles } from "../styles";
 
 /**
  * Empty State Component
@@ -16,10 +16,11 @@ export const EmptyState = memo(function EmptyState({
   icon,
 }: EmptyStateProps) {
   return (
-    <div style={emptyStateStyles.container}>
-      <div style={emptyStateStyles.icon}>{icon || <Sparkles size={32} />}</div>
-      <h3 style={emptyStateStyles.title}>{title}</h3>
-      <p style={emptyStateStyles.description}>{description}</p>
-    </div>
+    <SharedEmptyState
+      icon={icon || <Sparkles size={32} />}
+      title={title}
+      description={description}
+      className="flex-1 border border-dashed border-border/60 bg-muted/10 py-16"
+    />
   );
 });

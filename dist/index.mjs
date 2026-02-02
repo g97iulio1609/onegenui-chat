@@ -414,6 +414,26 @@ var ChatInput = memo3(function ChatInput2({
 // src/components/EmptyState.tsx
 import { memo as memo4 } from "react";
 import { Sparkles as Sparkles2 } from "lucide-react";
+import { EmptyState as SharedEmptyState } from "@onegenui/components";
+import { jsx as jsx4 } from "react/jsx-runtime";
+var EmptyState = memo4(function EmptyState2({
+  title = "Start a conversation",
+  description = "Ask me anything about your dashboard. I can help you create, modify, and analyze components.",
+  icon
+}) {
+  return /* @__PURE__ */ jsx4(
+    SharedEmptyState,
+    {
+      icon: icon || /* @__PURE__ */ jsx4(Sparkles2, { size: 32 }),
+      title,
+      description,
+      className: "flex-1 border border-dashed border-border/60 bg-muted/10 py-16"
+    }
+  );
+});
+
+// src/components/SuggestionChips.tsx
+import { memo as memo5 } from "react";
 
 // src/styles/tokens.ts
 var colors = {
@@ -1013,22 +1033,7 @@ var typingIndicatorStyles = {
   }
 };
 
-// src/components/EmptyState.tsx
-import { jsx as jsx4, jsxs as jsxs4 } from "react/jsx-runtime";
-var EmptyState = memo4(function EmptyState2({
-  title = "Start a conversation",
-  description = "Ask me anything about your dashboard. I can help you create, modify, and analyze components.",
-  icon
-}) {
-  return /* @__PURE__ */ jsxs4("div", { style: emptyStateStyles.container, children: [
-    /* @__PURE__ */ jsx4("div", { style: emptyStateStyles.icon, children: icon || /* @__PURE__ */ jsx4(Sparkles2, { size: 32 }) }),
-    /* @__PURE__ */ jsx4("h3", { style: emptyStateStyles.title, children: title }),
-    /* @__PURE__ */ jsx4("p", { style: emptyStateStyles.description, children: description })
-  ] });
-});
-
 // src/components/SuggestionChips.tsx
-import { memo as memo5 } from "react";
 import { jsx as jsx5 } from "react/jsx-runtime";
 var SuggestionChips = memo5(function SuggestionChips2({
   suggestions,
@@ -1059,19 +1064,10 @@ var SuggestionChips = memo5(function SuggestionChips2({
 
 // src/components/TypingIndicator.tsx
 import { memo as memo6 } from "react";
+import { LoadingIndicator } from "@onegenui/components";
 import { jsx as jsx6 } from "react/jsx-runtime";
 var TypingIndicator = memo6(function TypingIndicator2() {
-  return /* @__PURE__ */ jsx6("div", { className: "flex items-center gap-1 px-4 py-3", children: [0, 1, 2].map((i) => /* @__PURE__ */ jsx6(
-    "span",
-    {
-      className: "w-2 h-2 rounded-full bg-white/40 animate-bounce",
-      style: {
-        animationDelay: `${i * 0.15}s`,
-        animationDuration: "1s"
-      }
-    },
-    i
-  )) });
+  return /* @__PURE__ */ jsx6("div", { className: "px-4 py-3", children: /* @__PURE__ */ jsx6(LoadingIndicator, {}) });
 });
 
 // src/components/QuestionForm/component.tsx
@@ -1095,7 +1091,7 @@ function getQuickReplyButtonClass(variant = "default", isSelected) {
 }
 
 // src/components/QuestionForm/field-renderer.tsx
-import { Fragment as Fragment2, jsx as jsx7, jsxs as jsxs5 } from "react/jsx-runtime";
+import { Fragment as Fragment2, jsx as jsx7, jsxs as jsxs4 } from "react/jsx-runtime";
 function FieldRenderer({
   field,
   value,
@@ -1154,8 +1150,8 @@ function FieldRenderer({
         }
       );
     case "select":
-      return /* @__PURE__ */ jsxs5("div", { className: "flex flex-col gap-2 w-full", children: [
-        /* @__PURE__ */ jsxs5(
+      return /* @__PURE__ */ jsxs4("div", { className: "flex flex-col gap-2 w-full", children: [
+        /* @__PURE__ */ jsxs4(
           "select",
           {
             value: isCustomSelected ? "__custom__" : value || "",
@@ -1192,7 +1188,7 @@ function FieldRenderer({
         )
       ] });
     case "checkbox":
-      return /* @__PURE__ */ jsxs5("label", { className: "flex items-center gap-2 cursor-pointer w-fit select-none", children: [
+      return /* @__PURE__ */ jsxs4("label", { className: "flex items-center gap-2 cursor-pointer w-fit select-none", children: [
         /* @__PURE__ */ jsx7(
           "input",
           {
@@ -1206,8 +1202,8 @@ function FieldRenderer({
         /* @__PURE__ */ jsx7("span", { className: "text-sm text-foreground", children: field.label })
       ] });
     case "radio":
-      return /* @__PURE__ */ jsxs5("div", { className: "flex flex-col gap-1.5", children: [
-        field.options?.map((opt) => /* @__PURE__ */ jsxs5(
+      return /* @__PURE__ */ jsxs4("div", { className: "flex flex-col gap-1.5", children: [
+        field.options?.map((opt) => /* @__PURE__ */ jsxs4(
           "label",
           {
             className: "flex items-center gap-2 cursor-pointer text-sm text-foreground select-none w-fit",
@@ -1229,8 +1225,8 @@ function FieldRenderer({
           },
           opt.value
         )),
-        field.allowCustom && /* @__PURE__ */ jsxs5(Fragment2, { children: [
-          /* @__PURE__ */ jsxs5("label", { className: "flex items-center gap-2 cursor-pointer text-sm text-foreground select-none w-fit", children: [
+        field.allowCustom && /* @__PURE__ */ jsxs4(Fragment2, { children: [
+          /* @__PURE__ */ jsxs4("label", { className: "flex items-center gap-2 cursor-pointer text-sm text-foreground select-none w-fit", children: [
             /* @__PURE__ */ jsx7(
               "input",
               {
@@ -1266,7 +1262,7 @@ function FieldRenderer({
 }
 
 // src/components/QuestionForm/quick-reply-form.tsx
-import { jsx as jsx8, jsxs as jsxs6 } from "react/jsx-runtime";
+import { jsx as jsx8, jsxs as jsxs5 } from "react/jsx-runtime";
 function QuickReplyForm({
   question,
   selectedOptions,
@@ -1278,9 +1274,9 @@ function QuickReplyForm({
   onCustomValueChange,
   onSubmit
 }) {
-  return /* @__PURE__ */ jsxs6("div", { className: CONTAINER_CLASS, children: [
+  return /* @__PURE__ */ jsxs5("div", { className: CONTAINER_CLASS, children: [
     question.text && /* @__PURE__ */ jsx8("div", { className: QUESTION_TEXT_CLASS, children: question.text }),
-    /* @__PURE__ */ jsxs6("div", { className: "flex flex-wrap gap-2", children: [
+    /* @__PURE__ */ jsxs5("div", { className: "flex flex-wrap gap-2", children: [
       question.options?.map((opt) => {
         const isSelected = question.multiple ? selectedOptions.includes(opt.value) : false;
         return /* @__PURE__ */ jsx8(
@@ -1306,7 +1302,7 @@ function QuickReplyForm({
         }
       )
     ] }),
-    isCustomMode && /* @__PURE__ */ jsxs6("div", { className: "mt-3 flex gap-2 w-full", children: [
+    isCustomMode && /* @__PURE__ */ jsxs5("div", { className: "mt-3 flex gap-2 w-full", children: [
       /* @__PURE__ */ jsx8(
         "input",
         {
@@ -1348,7 +1344,7 @@ function QuickReplyForm({
         }
       )
     ] }),
-    question.multiple && selectedOptions.length > 0 && /* @__PURE__ */ jsx8("div", { className: "mt-3 flex justify-end", children: /* @__PURE__ */ jsxs6(
+    question.multiple && selectedOptions.length > 0 && /* @__PURE__ */ jsx8("div", { className: "mt-3 flex justify-end", children: /* @__PURE__ */ jsxs5(
       "button",
       {
         type: "button",
@@ -1369,7 +1365,7 @@ function QuickReplyForm({
 }
 
 // src/components/QuestionForm/component.tsx
-import { jsx as jsx9, jsxs as jsxs7 } from "react/jsx-runtime";
+import { jsx as jsx9, jsxs as jsxs6 } from "react/jsx-runtime";
 function QuestionForm({
   question,
   onSubmit,
@@ -1468,11 +1464,11 @@ function QuestionForm({
     );
   }
   const hasFields = question.fields && question.fields.length > 0;
-  return /* @__PURE__ */ jsxs7("div", { className: CONTAINER_CLASS, children: [
+  return /* @__PURE__ */ jsxs6("div", { className: CONTAINER_CLASS, children: [
     question.text && /* @__PURE__ */ jsx9("div", { className: QUESTION_TEXT_CLASS, children: question.text }),
-    /* @__PURE__ */ jsxs7("form", { onSubmit: handleSubmit, className: "flex flex-col gap-3", children: [
-      hasFields ? question.fields?.map((field) => /* @__PURE__ */ jsxs7("div", { className: "flex flex-col gap-1 w-full relative", children: [
-        field.type !== "checkbox" && /* @__PURE__ */ jsxs7("label", { className: "text-xs font-medium text-muted-foreground", children: [
+    /* @__PURE__ */ jsxs6("form", { onSubmit: handleSubmit, className: "flex flex-col gap-3", children: [
+      hasFields ? question.fields?.map((field) => /* @__PURE__ */ jsxs6("div", { className: "flex flex-col gap-1 w-full relative", children: [
+        field.type !== "checkbox" && /* @__PURE__ */ jsxs6("label", { className: "text-xs font-medium text-muted-foreground", children: [
           field.label,
           field.validation?.required && /* @__PURE__ */ jsx9("span", { className: "text-destructive ml-0.5", children: " *" })
         ] }),
@@ -1500,7 +1496,7 @@ function QuestionForm({
           disabled: isSubmitting
         }
       ) }),
-      /* @__PURE__ */ jsxs7("div", { className: "flex gap-2 justify-end mt-2", children: [
+      /* @__PURE__ */ jsxs6("div", { className: "flex gap-2 justify-end mt-2", children: [
         !question.required && onSkip && /* @__PURE__ */ jsx9(
           "button",
           {
@@ -1539,7 +1535,7 @@ var MarkdownMessage = memo7(function MarkdownMessage2({
 
 // src/components/ToolProgressIndicator.tsx
 import { memo as memo8 } from "react";
-import { jsx as jsx11, jsxs as jsxs8 } from "react/jsx-runtime";
+import { jsx as jsx11, jsxs as jsxs7 } from "react/jsx-runtime";
 var toolLabels = {
   "web-search": "Web Search",
   "web-scrape": "Reading Page",
@@ -1576,7 +1572,7 @@ var ToolProgressItem = memo8(function ToolProgressItem2({
   const isProgress = progress.status === "progress";
   const isDeepResearch = progress.toolName === "deep-research";
   const progressPercent = progress.progress ?? 0;
-  return /* @__PURE__ */ jsxs8(
+  return /* @__PURE__ */ jsxs7(
     "div",
     {
       className: cn(
@@ -1585,7 +1581,7 @@ var ToolProgressItem = memo8(function ToolProgressItem2({
         "animate-in fade-in-0 slide-in-from-bottom-2 duration-300"
       ),
       children: [
-        /* @__PURE__ */ jsxs8("div", { className: "relative", children: [
+        /* @__PURE__ */ jsxs7("div", { className: "relative", children: [
           /* @__PURE__ */ jsx11(
             "div",
             {
@@ -1598,8 +1594,8 @@ var ToolProgressItem = memo8(function ToolProgressItem2({
           ),
           (isStarting || isProgress) && /* @__PURE__ */ jsx11("span", { className: "absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-primary animate-pulse" })
         ] }),
-        /* @__PURE__ */ jsxs8("div", { className: "flex-1 min-w-0", children: [
-          /* @__PURE__ */ jsxs8("div", { className: "flex items-center gap-2", children: [
+        /* @__PURE__ */ jsxs7("div", { className: "flex-1 min-w-0", children: [
+          /* @__PURE__ */ jsxs7("div", { className: "flex items-center gap-2", children: [
             /* @__PURE__ */ jsx11("span", { className: "text-sm font-medium text-foreground", children: label }),
             (isStarting || isProgress) && /* @__PURE__ */ jsx11("span", { className: "flex gap-0.5", children: [0, 1, 2].map((i) => /* @__PURE__ */ jsx11(
               "span",
@@ -1629,7 +1625,7 @@ var ToolProgressItem = memo8(function ToolProgressItem2({
 var ToolIcon = memo8(function ToolIcon2({ toolName }) {
   switch (toolName) {
     case "web-search":
-      return /* @__PURE__ */ jsxs8(
+      return /* @__PURE__ */ jsxs7(
         "svg",
         {
           width: "16",
@@ -1647,7 +1643,7 @@ var ToolIcon = memo8(function ToolIcon2({ toolName }) {
         }
       );
     case "web-scrape":
-      return /* @__PURE__ */ jsxs8(
+      return /* @__PURE__ */ jsxs7(
         "svg",
         {
           width: "16",
@@ -1682,7 +1678,7 @@ var ToolIcon = memo8(function ToolIcon2({ toolName }) {
         }
       );
     case "search-hotel":
-      return /* @__PURE__ */ jsxs8(
+      return /* @__PURE__ */ jsxs7(
         "svg",
         {
           width: "16",
@@ -1705,7 +1701,7 @@ var ToolIcon = memo8(function ToolIcon2({ toolName }) {
         }
       );
     case "deep-research":
-      return /* @__PURE__ */ jsxs8(
+      return /* @__PURE__ */ jsxs7(
         "svg",
         {
           width: "16",
@@ -1742,7 +1738,7 @@ var ToolIcon = memo8(function ToolIcon2({ toolName }) {
 });
 
 // src/components/ChatPanel.tsx
-import { Fragment as Fragment3, jsx as jsx12, jsxs as jsxs9 } from "react/jsx-runtime";
+import { Fragment as Fragment3, jsx as jsx12, jsxs as jsxs8 } from "react/jsx-runtime";
 var ChatPanel = memo9(function ChatPanel2({
   conversation,
   isStreaming = false,
@@ -1791,7 +1787,7 @@ var ChatPanel = memo9(function ChatPanel2({
   const lastTurn = conversation[conversation.length - 1];
   const suggestions = lastTurn?.suggestions || [];
   const hasMessages = conversation.length > 0;
-  return /* @__PURE__ */ jsxs9(
+  return /* @__PURE__ */ jsxs8(
     "div",
     {
       ref: containerRef,
@@ -1818,8 +1814,8 @@ var ChatPanel = memo9(function ChatPanel2({
             showClose: !!onOpenChange
           }
         ),
-        /* @__PURE__ */ jsx12("div", { className: "flex flex-col gap-6 p-6 flex-1 overflow-y-auto", children: !hasMessages ? /* @__PURE__ */ jsx12(EmptyState, {}) : /* @__PURE__ */ jsxs9(Fragment3, { children: [
-          conversation.map((turn) => /* @__PURE__ */ jsxs9("div", { className: "flex flex-col gap-4", children: [
+        /* @__PURE__ */ jsx12("div", { className: "flex flex-col gap-6 p-6 flex-1 overflow-y-auto", children: !hasMessages ? /* @__PURE__ */ jsx12(EmptyState, {}) : /* @__PURE__ */ jsxs8(Fragment3, { children: [
+          conversation.map((turn) => /* @__PURE__ */ jsxs8("div", { className: "flex flex-col gap-4", children: [
             turn.userMessage && !turn.isProactive && /* @__PURE__ */ jsx12("div", { className: "self-end max-w-[85%] px-5 py-3 rounded-2xl rounded-br-sm bg-primary text-primary-foreground shadow-md text-base leading-normal", children: turn.userMessage }),
             turn.assistantMessages?.map(
               (msg, idx) => /* @__PURE__ */ jsx12(
@@ -1860,8 +1856,8 @@ var ChatPanel = memo9(function ChatPanel2({
             disabled: isStreaming
           }
         ),
-        isInSelectionMode ? /* @__PURE__ */ jsxs9("div", { className: "p-6", children: [
-          /* @__PURE__ */ jsxs9("div", { className: "mb-2 text-xs font-medium text-white/70", children: [
+        isInSelectionMode ? /* @__PURE__ */ jsxs8("div", { className: "p-6", children: [
+          /* @__PURE__ */ jsxs8("div", { className: "mb-2 text-xs font-medium text-white/70", children: [
             "Editing: ",
             selectedElement?.type
           ] }),
@@ -1875,7 +1871,7 @@ var ChatPanel = memo9(function ChatPanel2({
               isStreaming
             }
           ),
-          /* @__PURE__ */ jsxs9("div", { className: "flex gap-2 mt-2", children: [
+          /* @__PURE__ */ jsxs8("div", { className: "flex gap-2 mt-2", children: [
             /* @__PURE__ */ jsx12(
               "button",
               {
@@ -1912,7 +1908,7 @@ var ChatPanel = memo9(function ChatPanel2({
 
 // src/components/ConversationInteractiveElements.tsx
 import { useMemo } from "react";
-import { jsx as jsx13, jsxs as jsxs10 } from "react/jsx-runtime";
+import { jsx as jsx13, jsxs as jsxs9 } from "react/jsx-runtime";
 var CONTAINER_STYLE = {
   display: "flex",
   flexDirection: "column",
@@ -1951,7 +1947,7 @@ function ConversationInteractiveElements({
   if (unansweredQuestions.length === 0 && suggestions.length === 0) {
     return null;
   }
-  return /* @__PURE__ */ jsxs10("div", { style: { ...CONTAINER_STYLE, ...style }, className, children: [
+  return /* @__PURE__ */ jsxs9("div", { style: { ...CONTAINER_STYLE, ...style }, className, children: [
     unansweredQuestions.map(({ turnId, question }, index) => /* @__PURE__ */ jsx13(
       QuestionForm,
       {
@@ -1977,9 +1973,9 @@ function ConversationInteractiveElements({
 import { memo as memo10 } from "react";
 
 // src/components/PlanningStatus/icons.tsx
-import { jsx as jsx14, jsxs as jsxs11 } from "react/jsx-runtime";
+import { jsx as jsx14, jsxs as jsxs10 } from "react/jsx-runtime";
 var icons = {
-  plan: /* @__PURE__ */ jsxs11(
+  plan: /* @__PURE__ */ jsxs10(
     "svg",
     {
       width: "16",
@@ -2042,7 +2038,7 @@ var icons = {
       children: /* @__PURE__ */ jsx14("circle", { cx: "12", cy: "12", r: "10", opacity: "0.3" })
     }
   ),
-  research: /* @__PURE__ */ jsxs11(
+  research: /* @__PURE__ */ jsxs10(
     "svg",
     {
       width: "12",
@@ -2059,7 +2055,7 @@ var icons = {
       ]
     }
   ),
-  coding: /* @__PURE__ */ jsxs11(
+  coding: /* @__PURE__ */ jsxs10(
     "svg",
     {
       width: "12",
@@ -2076,7 +2072,7 @@ var icons = {
       ]
     }
   ),
-  review: /* @__PURE__ */ jsxs11(
+  review: /* @__PURE__ */ jsxs10(
     "svg",
     {
       width: "12",
@@ -2093,7 +2089,7 @@ var icons = {
       ]
     }
   ),
-  parallel: /* @__PURE__ */ jsxs11(
+  parallel: /* @__PURE__ */ jsxs10(
     "svg",
     {
       width: "12",
@@ -2334,14 +2330,14 @@ var styles = {
 };
 
 // src/components/PlanningStatus/step-item.tsx
-import { jsx as jsx15, jsxs as jsxs12 } from "react/jsx-runtime";
+import { jsx as jsx15, jsxs as jsxs11 } from "react/jsx-runtime";
 var StepItem = ({
   step,
   index,
   isCompleted,
   isActive,
   isSubtask = false
-}) => /* @__PURE__ */ jsxs12(
+}) => /* @__PURE__ */ jsxs11(
   "div",
   {
     style: {
@@ -2364,7 +2360,7 @@ var StepItem = ({
         }
       ),
       /* @__PURE__ */ jsx15("div", { style: styles.stepContent, children: /* @__PURE__ */ jsx15("span", { style: styles.stepTask, children: step.task }) }),
-      /* @__PURE__ */ jsxs12(
+      /* @__PURE__ */ jsxs11(
         "div",
         {
           style: {
@@ -2383,7 +2379,7 @@ var StepItem = ({
 );
 
 // src/components/PlanningStatus/component.tsx
-import { jsx as jsx16, jsxs as jsxs13 } from "react/jsx-runtime";
+import { jsx as jsx16, jsxs as jsxs12 } from "react/jsx-runtime";
 var PlanningStatus = memo10(
   function PlanningStatus2({
     plan,
@@ -2397,15 +2393,15 @@ var PlanningStatus = memo10(
     const completedCount = completedSteps.length + completedSubtasks.length;
     const totalSteps = countAllSteps(plan.steps);
     const progress = totalSteps > 0 ? completedCount / totalSteps * 100 : 0;
-    return /* @__PURE__ */ jsxs13("div", { style: styles.container, children: [
+    return /* @__PURE__ */ jsxs12("div", { style: styles.container, children: [
       /* @__PURE__ */ jsx16("style", { children: keyframes2 }),
-      /* @__PURE__ */ jsxs13("div", { style: styles.header, children: [
-        /* @__PURE__ */ jsxs13("div", { style: styles.headerLeft, children: [
+      /* @__PURE__ */ jsxs12("div", { style: styles.header, children: [
+        /* @__PURE__ */ jsxs12("div", { style: styles.headerLeft, children: [
           /* @__PURE__ */ jsx16("div", { style: styles.iconWrapper, children: icons.plan }),
-          /* @__PURE__ */ jsxs13("div", { style: styles.headerContent, children: [
-            /* @__PURE__ */ jsxs13("span", { style: styles.label, children: [
+          /* @__PURE__ */ jsxs12("div", { style: styles.headerContent, children: [
+            /* @__PURE__ */ jsxs12("span", { style: styles.label, children: [
               "Execution Plan",
-              parallelLevel !== null && parallelLevel !== void 0 && /* @__PURE__ */ jsxs13("span", { style: styles.parallelBadge, children: [
+              parallelLevel !== null && parallelLevel !== void 0 && /* @__PURE__ */ jsxs12("span", { style: styles.parallelBadge, children: [
                 "\u26A1 Parallel L",
                 parallelLevel
               ] })
@@ -2413,7 +2409,7 @@ var PlanningStatus = memo10(
             /* @__PURE__ */ jsx16("span", { style: styles.goal, children: plan.goal })
           ] })
         ] }),
-        /* @__PURE__ */ jsxs13("div", { style: styles.progressBadge, children: [
+        /* @__PURE__ */ jsxs12("div", { style: styles.progressBadge, children: [
           completedCount,
           "/",
           totalSteps
@@ -2423,7 +2419,7 @@ var PlanningStatus = memo10(
       /* @__PURE__ */ jsx16("div", { style: styles.steps, children: plan.steps.map((step, index) => {
         const isCompleted = completedSteps.includes(step.id);
         const isActive = activeStepId === step.id;
-        return /* @__PURE__ */ jsxs13("div", { children: [
+        return /* @__PURE__ */ jsxs12("div", { children: [
           /* @__PURE__ */ jsx16(
             StepItem,
             {
@@ -2461,7 +2457,7 @@ import {
   useActiveToolProgress,
   selectPlanExecution
 } from "@onegenui/react";
-import { jsx as jsx17, jsxs as jsxs14 } from "react/jsx-runtime";
+import { jsx as jsx17, jsxs as jsxs13 } from "react/jsx-runtime";
 var UnifiedProgressIndicator = memo11(
   function UnifiedProgressIndicator2({ className }) {
     const planExecution = useStore2(selectPlanExecution);
@@ -2476,7 +2472,7 @@ var UnifiedProgressIndicator = memo11(
     if (!isOrchestrating && activeTools.length === 0) {
       return null;
     }
-    return /* @__PURE__ */ jsxs14("div", { className: cn("unified-progress", className), children: [
+    return /* @__PURE__ */ jsxs13("div", { className: cn("unified-progress", className), children: [
       /* @__PURE__ */ jsx17("style", { children: KEYFRAMES }),
       isOrchestrating && plan && metrics && /* @__PURE__ */ jsx17(
         PlanSection,
@@ -2495,14 +2491,14 @@ var PlanSection = memo11(function PlanSection2({
   metrics,
   parallelLevel
 }) {
-  return /* @__PURE__ */ jsxs14("div", { className: "plan-section", children: [
-    /* @__PURE__ */ jsxs14("div", { className: "plan-header", children: [
-      /* @__PURE__ */ jsxs14("div", { className: "plan-header-left", children: [
+  return /* @__PURE__ */ jsxs13("div", { className: "plan-section", children: [
+    /* @__PURE__ */ jsxs13("div", { className: "plan-header", children: [
+      /* @__PURE__ */ jsxs13("div", { className: "plan-header-left", children: [
         /* @__PURE__ */ jsx17("div", { className: "plan-icon", children: ICONS.plan }),
-        /* @__PURE__ */ jsxs14("div", { className: "plan-header-content", children: [
-          /* @__PURE__ */ jsxs14("span", { className: "plan-label", children: [
+        /* @__PURE__ */ jsxs13("div", { className: "plan-header-content", children: [
+          /* @__PURE__ */ jsxs13("span", { className: "plan-label", children: [
             "Generating",
-            parallelLevel !== null && /* @__PURE__ */ jsxs14("span", { className: "parallel-badge", children: [
+            parallelLevel !== null && /* @__PURE__ */ jsxs13("span", { className: "parallel-badge", children: [
               "Parallel L",
               parallelLevel
             ] })
@@ -2510,7 +2506,7 @@ var PlanSection = memo11(function PlanSection2({
           /* @__PURE__ */ jsx17("span", { className: "plan-goal", children: plan.goal })
         ] })
       ] }),
-      /* @__PURE__ */ jsxs14("div", { className: "progress-badge", children: [
+      /* @__PURE__ */ jsxs13("div", { className: "progress-badge", children: [
         metrics.completed,
         "/",
         metrics.total
@@ -2533,7 +2529,7 @@ var StepItem2 = memo11(function StepItem3({ step, index }) {
   const isActive = step.status === "running";
   const isCompleted = step.status === "complete";
   const isPending = step.status === "pending";
-  return /* @__PURE__ */ jsxs14(
+  return /* @__PURE__ */ jsxs13(
     "div",
     {
       className: cn(
@@ -2543,7 +2539,7 @@ var StepItem2 = memo11(function StepItem3({ step, index }) {
         isPending && "step-pending"
       ),
       children: [
-        /* @__PURE__ */ jsxs14(
+        /* @__PURE__ */ jsxs13(
           "div",
           {
             className: cn(
@@ -2572,9 +2568,9 @@ var ToolSection = memo11(function ToolSection2({
 });
 var ToolItem = memo11(function ToolItem2({ tool }) {
   const isActive = tool.status !== "complete" && tool.status !== "error";
-  return /* @__PURE__ */ jsxs14("div", { className: "tool-item", children: [
+  return /* @__PURE__ */ jsxs13("div", { className: "tool-item", children: [
     /* @__PURE__ */ jsx17("div", { className: "tool-icon", children: getToolIcon(tool.toolName) }),
-    /* @__PURE__ */ jsxs14("div", { className: "tool-content", children: [
+    /* @__PURE__ */ jsxs13("div", { className: "tool-content", children: [
       /* @__PURE__ */ jsx17("span", { className: "tool-name", children: formatToolName(tool.toolName) }),
       tool.message && /* @__PURE__ */ jsx17("span", { className: "tool-message", children: tool.message })
     ] }),
@@ -2687,7 +2683,7 @@ var ICONS = {
       children: /* @__PURE__ */ jsx17("polyline", { points: "20,6 9,17 4,12" })
     }
   ),
-  search: /* @__PURE__ */ jsxs14(
+  search: /* @__PURE__ */ jsxs13(
     "svg",
     {
       width: "14",
@@ -2702,7 +2698,7 @@ var ICONS = {
       ]
     }
   ),
-  document: /* @__PURE__ */ jsxs14(
+  document: /* @__PURE__ */ jsxs13(
     "svg",
     {
       width: "14",
@@ -2729,7 +2725,7 @@ var ICONS = {
       children: /* @__PURE__ */ jsx17("path", { d: "M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" })
     }
   ),
-  building: /* @__PURE__ */ jsxs14(
+  building: /* @__PURE__ */ jsxs13(
     "svg",
     {
       width: "14",
@@ -3059,7 +3055,7 @@ function isFileAttachment(a) {
 }
 
 // src/components/Input/FileAttachmentBadge.tsx
-import { jsx as jsx18, jsxs as jsxs15 } from "react/jsx-runtime";
+import { jsx as jsx18, jsxs as jsxs14 } from "react/jsx-runtime";
 var getIconForType = (type) => {
   switch (type) {
     case "document":
@@ -3083,7 +3079,7 @@ function FileAttachmentBadge({
   const isLibrary = isLibraryAttachment(attachment);
   const fileName = isLibrary ? attachment.fileName : attachment.file.name;
   const preview = isFileAttachment(attachment) ? attachment.preview : void 0;
-  return /* @__PURE__ */ jsxs15(
+  return /* @__PURE__ */ jsxs14(
     "div",
     {
       className: `inline-flex items-center gap-2 px-2 py-1 rounded-lg border max-w-[200px] text-[13px] text-foreground select-none transition-colors ${isLibrary ? "bg-blue-500/10 border-blue-500/20 hover:bg-blue-500/15" : "bg-white/10 border-white/10 hover:bg-white/15"}`,
@@ -3127,7 +3123,7 @@ import {
   FileEdit
 } from "lucide-react";
 import { AnimatePresence as AnimatePresence2, motion as motion2 } from "framer-motion";
-import { Fragment as Fragment4, jsx as jsx19, jsxs as jsxs16 } from "react/jsx-runtime";
+import { Fragment as Fragment4, jsx as jsx19, jsxs as jsxs15 } from "react/jsx-runtime";
 function ActionMenu({
   isOpen,
   onClose,
@@ -3163,8 +3159,8 @@ function ActionMenu({
       exit: { opacity: 0, scale: 0.95, y: 10 },
       transition: { duration: 0.2, ease: "easeOut" },
       className: "absolute left-0 bottom-full mb-3 min-w-[200px] overflow-hidden rounded-xl bg-[#1e1e23]/95 backdrop-blur-xl border border-white/10 shadow-2xl z-[150]",
-      children: /* @__PURE__ */ jsxs16("div", { className: "p-1.5 flex flex-col gap-1", children: [
-        onOpenSettings && /* @__PURE__ */ jsxs16(
+      children: /* @__PURE__ */ jsxs15("div", { className: "p-1.5 flex flex-col gap-1", children: [
+        onOpenSettings && /* @__PURE__ */ jsxs15(
           "button",
           {
             onClick: () => {
@@ -3178,7 +3174,7 @@ function ActionMenu({
             ]
           }
         ),
-        onToggleDocumentEditor && /* @__PURE__ */ jsxs16(
+        onToggleDocumentEditor && /* @__PURE__ */ jsxs15(
           "button",
           {
             onClick: () => {
@@ -3195,7 +3191,7 @@ function ActionMenu({
             ]
           }
         ),
-        onToggleCopilotMode && /* @__PURE__ */ jsxs16(
+        onToggleCopilotMode && /* @__PURE__ */ jsxs15(
           "button",
           {
             onClick: () => {
@@ -3212,7 +3208,7 @@ function ActionMenu({
             ]
           }
         ),
-        onToggleHideMessages && /* @__PURE__ */ jsxs16(
+        onToggleHideMessages && /* @__PURE__ */ jsxs15(
           "button",
           {
             onClick: () => {
@@ -3229,9 +3225,9 @@ function ActionMenu({
             ]
           }
         ),
-        canClear && onClear && /* @__PURE__ */ jsxs16(Fragment4, { children: [
+        canClear && onClear && /* @__PURE__ */ jsxs15(Fragment4, { children: [
           /* @__PURE__ */ jsx19("div", { className: "h-px bg-white/5 my-1" }),
-          /* @__PURE__ */ jsxs16(
+          /* @__PURE__ */ jsxs15(
             "button",
             {
               onClick: () => {
@@ -3253,7 +3249,7 @@ function ActionMenu({
 }
 
 // src/components/Input/ChatInputArea.tsx
-import { jsx as jsx20, jsxs as jsxs17 } from "react/jsx-runtime";
+import { jsx as jsx20, jsxs as jsxs16 } from "react/jsx-runtime";
 function ChatInputArea({
   input,
   setInput,
@@ -3303,7 +3299,7 @@ function ChatInputArea({
     },
     []
   );
-  return /* @__PURE__ */ jsxs17(
+  return /* @__PURE__ */ jsxs16(
     "div",
     {
       className: cn("relative w-full", className),
@@ -3318,7 +3314,7 @@ function ChatInputArea({
             onClose: () => setIsMenuOpen(false)
           }
         ),
-        /* @__PURE__ */ jsxs17(
+        /* @__PURE__ */ jsxs16(
           "div",
           {
             className: cn(
@@ -3336,8 +3332,8 @@ function ChatInputArea({
                 },
                 attachment.id
               )) }),
-              /* @__PURE__ */ jsxs17("div", { className: "flex items-center gap-2 sm:gap-3 w-full", children: [
-                /* @__PURE__ */ jsxs17("div", { className: "flex items-center gap-0.5 sm:gap-1 shrink-0", children: [
+              /* @__PURE__ */ jsxs16("div", { className: "flex items-center gap-2 sm:gap-3 w-full", children: [
+                /* @__PURE__ */ jsxs16("div", { className: "flex items-center gap-0.5 sm:gap-1 shrink-0", children: [
                   leftSlot,
                   /* @__PURE__ */ jsx20(
                     "button",

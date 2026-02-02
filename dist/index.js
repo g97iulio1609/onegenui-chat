@@ -472,6 +472,26 @@ var ChatInput = (0, import_react4.memo)(function ChatInput2({
 // src/components/EmptyState.tsx
 var import_react5 = require("react");
 var import_lucide_react4 = require("lucide-react");
+var import_components = require("@onegenui/components");
+var import_jsx_runtime4 = require("react/jsx-runtime");
+var EmptyState = (0, import_react5.memo)(function EmptyState2({
+  title = "Start a conversation",
+  description = "Ask me anything about your dashboard. I can help you create, modify, and analyze components.",
+  icon
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+    import_components.EmptyState,
+    {
+      icon: icon || /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(import_lucide_react4.Sparkles, { size: 32 }),
+      title,
+      description,
+      className: "flex-1 border border-dashed border-border/60 bg-muted/10 py-16"
+    }
+  );
+});
+
+// src/components/SuggestionChips.tsx
+var import_react6 = require("react");
 
 // src/styles/tokens.ts
 var colors = {
@@ -1071,22 +1091,7 @@ var typingIndicatorStyles = {
   }
 };
 
-// src/components/EmptyState.tsx
-var import_jsx_runtime4 = require("react/jsx-runtime");
-var EmptyState = (0, import_react5.memo)(function EmptyState2({
-  title = "Start a conversation",
-  description = "Ask me anything about your dashboard. I can help you create, modify, and analyze components.",
-  icon
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { style: emptyStateStyles.container, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { style: emptyStateStyles.icon, children: icon || /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(import_lucide_react4.Sparkles, { size: 32 }) }),
-    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("h3", { style: emptyStateStyles.title, children: title }),
-    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("p", { style: emptyStateStyles.description, children: description })
-  ] });
-});
-
 // src/components/SuggestionChips.tsx
-var import_react6 = require("react");
 var import_jsx_runtime5 = require("react/jsx-runtime");
 var SuggestionChips = (0, import_react6.memo)(function SuggestionChips2({
   suggestions,
@@ -1117,19 +1122,10 @@ var SuggestionChips = (0, import_react6.memo)(function SuggestionChips2({
 
 // src/components/TypingIndicator.tsx
 var import_react7 = require("react");
+var import_components2 = require("@onegenui/components");
 var import_jsx_runtime6 = require("react/jsx-runtime");
 var TypingIndicator = (0, import_react7.memo)(function TypingIndicator2() {
-  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "flex items-center gap-1 px-4 py-3", children: [0, 1, 2].map((i) => /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(
-    "span",
-    {
-      className: "w-2 h-2 rounded-full bg-white/40 animate-bounce",
-      style: {
-        animationDelay: `${i * 0.15}s`,
-        animationDuration: "1s"
-      }
-    },
-    i
-  )) });
+  return /* @__PURE__ */ (0, import_jsx_runtime6.jsx)("div", { className: "px-4 py-3", children: /* @__PURE__ */ (0, import_jsx_runtime6.jsx)(import_components2.LoadingIndicator, {}) });
 });
 
 // src/components/QuestionForm/component.tsx
