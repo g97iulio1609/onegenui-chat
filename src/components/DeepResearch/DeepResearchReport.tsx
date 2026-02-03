@@ -18,6 +18,7 @@ import {
   Copy,
   Check,
 } from "lucide-react";
+import { sanitizeUrl } from "@onegenui/utils";
 import { cn } from "../../utils/cn";
 
 // =============================================================================
@@ -408,7 +409,7 @@ const CitationBadge = memo(function CitationBadge({
 
   return (
     <a
-      href={citation.url}
+      href={sanitizeUrl(citation.url)}
       target="_blank"
       rel="noopener noreferrer"
       title={`${citation.title} (${citation.domain})`}
@@ -456,7 +457,7 @@ const CitationsSection = memo(function CitationsSection({
         {visibleCitations.map((citation) => (
           <a
             key={citation.id}
-            href={citation.url}
+            href={sanitizeUrl(citation.url)}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-start gap-3 p-2 rounded-md hover:bg-muted/50 transition-colors group"

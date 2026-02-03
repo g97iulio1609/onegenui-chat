@@ -2511,194 +2511,9 @@ var PlanningStatus = (0, import_react14.memo)(
 // src/components/UnifiedProgress/component.tsx
 var import_react15 = require("react");
 var import_react16 = require("@onegenui/react");
+
+// src/components/UnifiedProgress/icons.tsx
 var import_jsx_runtime17 = require("react/jsx-runtime");
-var UnifiedProgressIndicator = (0, import_react15.memo)(
-  function UnifiedProgressIndicator2({ className }) {
-    const planExecution = (0, import_react16.useStore)(import_react16.selectPlanExecution);
-    const activeTools = (0, import_react16.useActiveToolProgress)();
-    const plan = planExecution.plan;
-    const isOrchestrating = planExecution.isOrchestrating;
-    const parallelLevel = planExecution.parallelLevel;
-    const metrics = (0, import_react15.useMemo)(() => {
-      if (!plan) return null;
-      return computePlanMetrics(plan.steps);
-    }, [plan]);
-    if (!isOrchestrating && activeTools.length === 0) {
-      return null;
-    }
-    return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: (0, import_utils.cn)("unified-progress", className), children: [
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("style", { children: KEYFRAMES }),
-      isOrchestrating && plan && metrics && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
-        PlanSection,
-        {
-          plan,
-          metrics,
-          parallelLevel
-        }
-      ),
-      activeTools.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(ToolSection, { tools: activeTools, hasPlan: Boolean(plan) })
-    ] });
-  }
-);
-var PlanSection = (0, import_react15.memo)(function PlanSection2({
-  plan,
-  metrics,
-  parallelLevel
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "plan-section", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "plan-header", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "plan-header-left", children: [
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "plan-icon", children: ICONS.plan }),
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "plan-header-content", children: [
-          /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("span", { className: "plan-label", children: [
-            "Generating",
-            parallelLevel !== null && /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("span", { className: "parallel-badge", children: [
-              "Parallel L",
-              parallelLevel
-            ] })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "plan-goal", children: plan.goal })
-        ] })
-      ] }),
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "progress-badge", children: [
-        metrics.completed,
-        "/",
-        metrics.total
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "progress-bar", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
-      "div",
-      {
-        className: "progress-fill",
-        style: { width: `${metrics.progress}%` }
-      }
-    ) }),
-    /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(StepsList, { steps: plan.steps })
-  ] });
-});
-var StepsList = (0, import_react15.memo)(function StepsList2({ steps }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "steps-list", children: steps.map((step, index) => /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(StepItem2, { step, index }, step.id)) });
-});
-var StepItem2 = (0, import_react15.memo)(function StepItem3({ step, index }) {
-  const isActive = step.status === "running";
-  const isCompleted = step.status === "complete";
-  const isPending = step.status === "pending";
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
-    "div",
-    {
-      className: (0, import_utils.cn)(
-        "step-item",
-        isActive && "step-active",
-        isCompleted && "step-completed",
-        isPending && "step-pending"
-      ),
-      children: [
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(
-          "div",
-          {
-            className: (0, import_utils.cn)(
-              "step-status",
-              isActive && "status-active",
-              isCompleted && "status-completed"
-            ),
-            children: [
-              isActive && ICONS.spinner,
-              isCompleted && ICONS.check,
-              isPending && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "step-number", children: index + 1 })
-            ]
-          }
-        ),
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "step-content", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "step-task", children: step.task }) }),
-        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: (0, import_utils.cn)("agent-badge", isActive && "badge-active"), children: step.agent })
-      ]
-    }
-  );
-});
-var ToolSection = (0, import_react15.memo)(function ToolSection2({
-  tools,
-  hasPlan
-}) {
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: (0, import_utils.cn)("tool-section", hasPlan && "tool-section-nested"), children: tools.map((tool) => /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(ToolItem, { tool }, tool.toolCallId)) });
-});
-var ToolItem = (0, import_react15.memo)(function ToolItem2({ tool }) {
-  const isActive = tool.status !== "complete" && tool.status !== "error";
-  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "tool-item", children: [
-    /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "tool-icon", children: getToolIcon(tool.toolName) }),
-    /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: "tool-content", children: [
-      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "tool-name", children: formatToolName(tool.toolName) }),
-      tool.message && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "tool-message", children: tool.message })
-    ] }),
-    isActive && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("span", { className: "tool-indicator", children: [0, 1, 2].map((i) => /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
-      "span",
-      {
-        className: "dot",
-        style: { animationDelay: `${i * 0.15}s` }
-      },
-      i
-    )) })
-  ] });
-});
-function computePlanMetrics(steps) {
-  let total = 0;
-  let completed = 0;
-  let running = 0;
-  function countStep(step) {
-    total++;
-    if (step.status === "complete") completed++;
-    if (step.status === "running") running++;
-    if (step.subtasks) {
-      step.subtasks.forEach((st) => {
-        total++;
-        if (st.status === "complete") completed++;
-        if (st.status === "running") running++;
-      });
-    }
-  }
-  steps.forEach(countStep);
-  return {
-    total,
-    completed,
-    running,
-    progress: total > 0 ? completed / total * 100 : 0
-  };
-}
-var TOOL_LABELS = {
-  "web-search": "Web Search",
-  "web-scrape": "Reading Page",
-  "search-flight": "Flight Search",
-  "search-hotel": "Hotel Search",
-  calendar: "Calendar",
-  gmail: "Email",
-  "document-index": "Indexing Document",
-  "document-index-cache": "Loading Cached Index",
-  "document-search": "Searching Sections",
-  "document-toc": "Detecting TOC",
-  "document-structure": "Extracting Structure"
-};
-function formatToolName(name) {
-  return TOOL_LABELS[name] || name.replace(/-/g, " ");
-}
-function getToolIcon(toolName) {
-  switch (toolName) {
-    case "web-search":
-      return ICONS.search;
-    case "web-scrape":
-      return ICONS.document;
-    case "search-flight":
-      return ICONS.plane;
-    case "search-hotel":
-      return ICONS.building;
-    case "document-index":
-    case "document-index-cache":
-    case "document-toc":
-    case "document-structure":
-      return ICONS.document;
-    case "document-search":
-      return ICONS.search;
-    default:
-      return ICONS.zap;
-  }
-}
 var ICONS = {
   plan: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(
     "svg",
@@ -2808,6 +2623,8 @@ var ICONS = {
     }
   )
 };
+
+// src/components/UnifiedProgress/styles.ts
 var KEYFRAMES = `
   @keyframes unified-spin {
     from { transform: rotate(0deg); }
@@ -3081,6 +2898,196 @@ var KEYFRAMES = `
   }
 `;
 
+// src/components/UnifiedProgress/component.tsx
+var import_jsx_runtime18 = require("react/jsx-runtime");
+var UnifiedProgressIndicator = (0, import_react15.memo)(
+  function UnifiedProgressIndicator2({ className }) {
+    const planExecution = (0, import_react16.useStore)(import_react16.selectPlanExecution);
+    const activeTools = (0, import_react16.useActiveToolProgress)();
+    const plan = planExecution.plan;
+    const isOrchestrating = planExecution.isOrchestrating;
+    const parallelLevel = planExecution.parallelLevel;
+    const metrics = (0, import_react15.useMemo)(() => {
+      if (!plan) return null;
+      return computePlanMetrics(plan.steps);
+    }, [plan]);
+    if (!isOrchestrating && activeTools.length === 0) {
+      return null;
+    }
+    return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: (0, import_utils.cn)("unified-progress", className), children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("style", { children: KEYFRAMES }),
+      isOrchestrating && plan && metrics && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+        PlanSection,
+        {
+          plan,
+          metrics,
+          parallelLevel
+        }
+      ),
+      activeTools.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(ToolSection, { tools: activeTools, hasPlan: Boolean(plan) })
+    ] });
+  }
+);
+var PlanSection = (0, import_react15.memo)(function PlanSection2({
+  plan,
+  metrics,
+  parallelLevel
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "plan-section", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "plan-header", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "plan-header-left", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "plan-icon", children: ICONS.plan }),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "plan-header-content", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("span", { className: "plan-label", children: [
+            "Generating",
+            parallelLevel !== null && /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("span", { className: "parallel-badge", children: [
+              "Parallel L",
+              parallelLevel
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "plan-goal", children: plan.goal })
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "progress-badge", children: [
+        metrics.completed,
+        "/",
+        metrics.total
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "progress-bar", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+      "div",
+      {
+        className: "progress-fill",
+        style: { width: `${metrics.progress}%` }
+      }
+    ) }),
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(StepsList, { steps: plan.steps })
+  ] });
+});
+var StepsList = (0, import_react15.memo)(function StepsList2({ steps }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "steps-list", children: steps.map((step, index) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(StepItem2, { step, index }, step.id)) });
+});
+var StepItem2 = (0, import_react15.memo)(function StepItem3({ step, index }) {
+  const isActive = step.status === "running";
+  const isCompleted = step.status === "complete";
+  const isPending = step.status === "pending";
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
+    "div",
+    {
+      className: (0, import_utils.cn)(
+        "step-item",
+        isActive && "step-active",
+        isCompleted && "step-completed",
+        isPending && "step-pending"
+      ),
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
+          "div",
+          {
+            className: (0, import_utils.cn)(
+              "step-status",
+              isActive && "status-active",
+              isCompleted && "status-completed"
+            ),
+            children: [
+              isActive && ICONS.spinner,
+              isCompleted && ICONS.check,
+              isPending && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "step-number", children: index + 1 })
+            ]
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "step-content", children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "step-task", children: step.task }) }),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: (0, import_utils.cn)("agent-badge", isActive && "badge-active"), children: step.agent })
+      ]
+    }
+  );
+});
+var ToolSection = (0, import_react15.memo)(function ToolSection2({
+  tools,
+  hasPlan
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: (0, import_utils.cn)("tool-section", hasPlan && "tool-section-nested"), children: tools.map((tool) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(ToolItem, { tool }, tool.toolCallId)) });
+});
+var ToolItem = (0, import_react15.memo)(function ToolItem2({ tool }) {
+  const isActive = tool.status !== "complete" && tool.status !== "error";
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "tool-item", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("div", { className: "tool-icon", children: getToolIcon(tool.toolName) }),
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "tool-content", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "tool-name", children: formatToolName(tool.toolName) }),
+      tool.message && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "tool-message", children: tool.message })
+    ] }),
+    isActive && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "tool-indicator", children: [0, 1, 2].map((i) => /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+      "span",
+      {
+        className: "dot",
+        style: { animationDelay: `${i * 0.15}s` }
+      },
+      i
+    )) })
+  ] });
+});
+function computePlanMetrics(steps) {
+  let total = 0;
+  let completed = 0;
+  let running = 0;
+  function countStep(step) {
+    total++;
+    if (step.status === "complete") completed++;
+    if (step.status === "running") running++;
+    if (step.subtasks) {
+      step.subtasks.forEach((st) => {
+        total++;
+        if (st.status === "complete") completed++;
+        if (st.status === "running") running++;
+      });
+    }
+  }
+  steps.forEach(countStep);
+  return {
+    total,
+    completed,
+    running,
+    progress: total > 0 ? completed / total * 100 : 0
+  };
+}
+var TOOL_LABELS = {
+  "web-search": "Web Search",
+  "web-scrape": "Reading Page",
+  "search-flight": "Flight Search",
+  "search-hotel": "Hotel Search",
+  calendar: "Calendar",
+  gmail: "Email",
+  "document-index": "Indexing Document",
+  "document-index-cache": "Loading Cached Index",
+  "document-search": "Searching Sections",
+  "document-toc": "Detecting TOC",
+  "document-structure": "Extracting Structure"
+};
+function formatToolName(name) {
+  return TOOL_LABELS[name] || name.replace(/-/g, " ");
+}
+function getToolIcon(toolName) {
+  switch (toolName) {
+    case "web-search":
+      return ICONS.search;
+    case "web-scrape":
+      return ICONS.document;
+    case "search-flight":
+      return ICONS.plane;
+    case "search-hotel":
+      return ICONS.building;
+    case "document-index":
+    case "document-index-cache":
+    case "document-toc":
+    case "document-structure":
+      return ICONS.document;
+    case "document-search":
+      return ICONS.search;
+    default:
+      return ICONS.zap;
+  }
+}
+
 // src/components/Input/ChatInputArea.tsx
 var import_react18 = require("react");
 var import_lucide_react7 = require("lucide-react");
@@ -3097,21 +3104,21 @@ function isFileAttachment(a) {
 }
 
 // src/components/Input/FileAttachmentBadge.tsx
-var import_jsx_runtime18 = require("react/jsx-runtime");
+var import_jsx_runtime19 = require("react/jsx-runtime");
 var getIconForType = (type) => {
   switch (type) {
     case "document":
-      return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_lucide_react5.FileText, { size: 14 });
+      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react5.FileText, { size: 14 });
     case "spreadsheet":
-      return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_lucide_react5.FileSpreadsheet, { size: 14 });
+      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react5.FileSpreadsheet, { size: 14 });
     case "presentation":
-      return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_lucide_react5.Presentation, { size: 14 });
+      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react5.Presentation, { size: 14 });
     case "image":
-      return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_lucide_react5.Image, { size: 14 });
+      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react5.Image, { size: 14 });
     case "library-document":
-      return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_lucide_react5.Library, { size: 14, className: "text-blue-400" });
+      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react5.Library, { size: 14, className: "text-blue-400" });
     default:
-      return /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_lucide_react5.File, { size: 14 });
+      return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react5.File, { size: 14 });
   }
 };
 function FileAttachmentBadge({
@@ -3121,12 +3128,12 @@ function FileAttachmentBadge({
   const isLibrary = isLibraryAttachment(attachment);
   const fileName = isLibrary ? attachment.fileName : attachment.file.name;
   const preview = isFileAttachment(attachment) ? attachment.preview : void 0;
-  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
     "div",
     {
       className: `inline-flex items-center gap-2 px-2 py-1 rounded-lg border max-w-[200px] text-[13px] text-foreground select-none transition-colors ${isLibrary ? "bg-blue-500/10 border-blue-500/20 hover:bg-blue-500/15" : "bg-white/10 border-white/10 hover:bg-white/15"}`,
       children: [
-        preview ? /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+        preview ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
           "img",
           {
             src: preview,
@@ -3134,8 +3141,8 @@ function FileAttachmentBadge({
             className: "w-5 h-5 object-cover rounded"
           }
         ) : getIconForType(attachment.type),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("span", { className: "truncate flex-1", children: fileName }),
-        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("span", { className: "truncate flex-1", children: fileName }),
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
           "button",
           {
             type: "button",
@@ -3145,7 +3152,7 @@ function FileAttachmentBadge({
             },
             className: "flex items-center justify-center w-4 h-4 rounded-full bg-white/10 text-muted-foreground hover:text-foreground hover:bg-white/20 ml-1 p-0 transition-colors border-none cursor-pointer",
             title: "Remove attachment",
-            children: /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(import_lucide_react5.X, { size: 10 })
+            children: /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react5.X, { size: 10 })
           }
         )
       ]
@@ -3157,7 +3164,7 @@ function FileAttachmentBadge({
 var import_react17 = require("react");
 var import_lucide_react6 = require("lucide-react");
 var import_framer_motion2 = require("framer-motion");
-var import_jsx_runtime19 = require("react/jsx-runtime");
+var import_jsx_runtime20 = require("react/jsx-runtime");
 function ActionMenu({
   isOpen,
   onClose,
@@ -3184,7 +3191,7 @@ function ActionMenu({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, onClose]);
-  return /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_framer_motion2.AnimatePresence, { children: isOpen && /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_framer_motion2.AnimatePresence, { children: isOpen && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
     import_framer_motion2.motion.div,
     {
       ref: menuRef,
@@ -3193,8 +3200,8 @@ function ActionMenu({
       exit: { opacity: 0, scale: 0.95, y: 10 },
       transition: { duration: 0.2, ease: "easeOut" },
       className: "absolute left-0 bottom-full mb-3 min-w-[200px] overflow-hidden rounded-xl bg-[#1e1e23]/95 backdrop-blur-xl border border-white/10 shadow-2xl z-[150]",
-      children: /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "p-1.5 flex flex-col gap-1", children: [
-        onOpenSettings && /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+      children: /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "p-1.5 flex flex-col gap-1", children: [
+        onOpenSettings && /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
           "button",
           {
             onClick: () => {
@@ -3203,12 +3210,12 @@ function ActionMenu({
             },
             className: "flex items-center gap-3 px-3 py-2.5 text-[14px] text-foreground hover:bg-white/5 rounded-lg transition-colors w-full text-left bg-transparent border-none cursor-pointer",
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.Settings, { size: 16 }),
+              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_lucide_react6.Settings, { size: 16 }),
               "Settings"
             ]
           }
         ),
-        onToggleDocumentEditor && /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+        onToggleDocumentEditor && /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
           "button",
           {
             onClick: () => {
@@ -3220,12 +3227,12 @@ function ActionMenu({
               isDocumentEditorEnabled ? "text-primary bg-primary/10" : "text-foreground hover:bg-white/5"
             ),
             children: [
-              /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.FileEdit, { size: 16 }),
+              /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_lucide_react6.FileEdit, { size: 16 }),
               isDocumentEditorEnabled ? "Close Document Editor" : "Open Document Editor"
             ]
           }
         ),
-        onToggleCopilotMode && /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+        onToggleCopilotMode && /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
           "button",
           {
             onClick: () => {
@@ -3237,12 +3244,12 @@ function ActionMenu({
               messagesMode === "copilot" ? "text-primary bg-primary/10" : "text-foreground hover:bg-white/5"
             ),
             children: [
-              messagesMode === "copilot" ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.PanelRightClose, { size: 16 }) : /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.PanelRightOpen, { size: 16 }),
+              messagesMode === "copilot" ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_lucide_react6.PanelRightClose, { size: 16 }) : /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_lucide_react6.PanelRightOpen, { size: 16 }),
               messagesMode === "copilot" ? "Close Copilot Panel" : "Open Copilot Panel"
             ]
           }
         ),
-        onToggleHideMessages && /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+        onToggleHideMessages && /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
           "button",
           {
             onClick: () => {
@@ -3254,14 +3261,14 @@ function ActionMenu({
               messagesMode === "hidden" ? "text-muted-foreground" : "text-foreground hover:bg-white/5"
             ),
             children: [
-              messagesMode === "hidden" ? /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.EyeOff, { size: 16 }) : /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.Eye, { size: 16 }),
+              messagesMode === "hidden" ? /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_lucide_react6.EyeOff, { size: 16 }) : /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_lucide_react6.Eye, { size: 16 }),
               messagesMode === "hidden" ? "Show Messages" : "Hide Messages"
             ]
           }
         ),
-        canClear && onClear && /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(import_jsx_runtime19.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("div", { className: "h-px bg-white/5 my-1" }),
-          /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(
+        canClear && onClear && /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(import_jsx_runtime20.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "h-px bg-white/5 my-1" }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
             "button",
             {
               onClick: () => {
@@ -3271,7 +3278,7 @@ function ActionMenu({
               disabled: !canClear,
               className: "flex items-center gap-3 px-3 py-2.5 text-[14px] text-destructive hover:bg-destructive/10 rounded-lg transition-colors w-full text-left bg-transparent border-none cursor-pointer",
               children: [
-                /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(import_lucide_react6.Trash2, { size: 16 }),
+                /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_lucide_react6.Trash2, { size: 16 }),
                 "Clear Chat"
               ]
             }
@@ -3283,7 +3290,7 @@ function ActionMenu({
 }
 
 // src/components/Input/ChatInputArea.tsx
-var import_jsx_runtime20 = require("react/jsx-runtime");
+var import_jsx_runtime21 = require("react/jsx-runtime");
 function ChatInputArea({
   input,
   setInput,
@@ -3333,14 +3340,14 @@ function ChatInputArea({
     },
     []
   );
-  return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
+  return /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
     "div",
     {
       className: (0, import_utils.cn)("relative w-full", className),
       onDrop: handleDrop,
       onDragOver: handleDragOver,
       children: [
-        menuProps && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+        menuProps && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
           ActionMenu,
           {
             ...menuProps,
@@ -3348,7 +3355,7 @@ function ChatInputArea({
             onClose: () => setIsMenuOpen(false)
           }
         ),
-        /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(
+        /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)(
           "div",
           {
             className: (0, import_utils.cn)(
@@ -3357,8 +3364,8 @@ function ChatInputArea({
               isDragActive && "border-primary/80 bg-primary/5"
             ),
             children: [
-              isDragActive && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "absolute inset-0 rounded-[18px] sm:rounded-[20px] border border-primary/60 pointer-events-none flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "text-xs uppercase tracking-widest text-primary font-semibold", children: "Drop files to attach" }) }),
-              attachments.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("div", { className: "flex gap-2 p-1 pb-2 w-full overflow-x-auto", children: attachments.map((attachment) => /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+              isDragActive && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "absolute inset-0 rounded-[18px] sm:rounded-[20px] border border-primary/60 pointer-events-none flex items-center justify-center", children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("span", { className: "text-xs uppercase tracking-widest text-primary font-semibold", children: "Drop files to attach" }) }),
+              attachments.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)("div", { className: "flex gap-2 p-1 pb-2 w-full overflow-x-auto", children: attachments.map((attachment) => /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
                 FileAttachmentBadge,
                 {
                   attachment,
@@ -3366,10 +3373,10 @@ function ChatInputArea({
                 },
                 attachment.id
               )) }),
-              /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center gap-2 sm:gap-3 w-full", children: [
-                /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center gap-0.5 sm:gap-1 shrink-0", children: [
+              /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex items-center gap-2 sm:gap-3 w-full", children: [
+                /* @__PURE__ */ (0, import_jsx_runtime21.jsxs)("div", { className: "flex items-center gap-0.5 sm:gap-1 shrink-0", children: [
                   leftSlot,
-                  /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+                  /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
                     "button",
                     {
                       type: "button",
@@ -3379,22 +3386,22 @@ function ChatInputArea({
                         isMenuOpen && "bg-white/10 text-foreground"
                       ),
                       title: "Actions",
-                      children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_lucide_react7.Plus, { size: 18, className: "sm:w-5 sm:h-5" })
+                      children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(import_lucide_react7.Plus, { size: 18, className: "sm:w-5 sm:h-5" })
                     }
                   ),
-                  /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+                  /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
                     "button",
                     {
                       type: "button",
                       onClick: onAttachClick,
                       className: "w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center cursor-pointer transition-all duration-200 text-muted-foreground bg-transparent border-none hover:bg-white/10 hover:text-foreground",
                       title: "Attach files",
-                      children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_lucide_react7.Paperclip, { size: 18, className: "sm:w-5 sm:h-5" })
+                      children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(import_lucide_react7.Paperclip, { size: 18, className: "sm:w-5 sm:h-5" })
                     }
                   ),
-                  showDeepResearch && /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(DeepResearchToggle, { compact: true })
+                  showDeepResearch && /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(DeepResearchToggle, { compact: true })
                 ] }),
-                /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+                /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
                   "input",
                   {
                     type: "file",
@@ -3405,7 +3412,7 @@ function ChatInputArea({
                     accept: ".pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.png,.jpg,.jpeg,.gif,.webp"
                   }
                 ),
-                /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+                /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
                   "input",
                   {
                     ref: inputRef,
@@ -3421,7 +3428,7 @@ function ChatInputArea({
                     autoFocus: true
                   }
                 ),
-                /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+                /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(
                   "button",
                   {
                     onClick: onSend,
@@ -3430,7 +3437,7 @@ function ChatInputArea({
                       "w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 border-none transition-all duration-200",
                       canSubmit ? "bg-primary text-primary-foreground shadow-[0_4px_12px_rgba(var(--primary-rgb),0.3)] cursor-pointer hover:bg-primary/90" : "bg-white/5 text-muted-foreground opacity-50 cursor-not-allowed"
                     ),
-                    children: /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(import_lucide_react7.SendHorizontal, { size: 16, className: "sm:w-[18px] sm:h-[18px]" })
+                    children: /* @__PURE__ */ (0, import_jsx_runtime21.jsx)(import_lucide_react7.SendHorizontal, { size: 16, className: "sm:w-[18px] sm:h-[18px]" })
                   }
                 )
               ] })

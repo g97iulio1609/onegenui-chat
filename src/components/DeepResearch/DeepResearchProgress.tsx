@@ -15,6 +15,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { useStore } from "@onegenui/react";
+import { sanitizeUrl } from "@onegenui/utils";
 import type { ResearchPhase, ResearchSource } from "@onegenui/react";
 import { cn } from "../../utils/cn";
 
@@ -283,7 +284,7 @@ const SourceItem = memo(function SourceItem({
           {Math.round(source.credibility * 100)}%
         </span>
         <a
-          href={source.url}
+          href={sanitizeUrl(source.url)}
           target="_blank"
           rel="noopener noreferrer"
           className="p-0.5 hover:text-primary transition-colors"
