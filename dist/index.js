@@ -3586,7 +3586,7 @@ var conversationTurnSchema = import_zod.z.object({
   userMessage: import_zod.z.string().optional(),
   assistantMessages: import_zod.z.array(chatMessageSchema).optional(),
   questions: import_zod.z.array(questionPayloadSchema).optional(),
-  questionAnswers: import_zod.z.record(import_zod.z.unknown()).optional(),
+  questionAnswers: import_zod.z.record(import_zod.z.string(), import_zod.z.unknown()).optional(),
   suggestions: import_zod.z.array(suggestionChipSchema).optional(),
   isProactive: import_zod.z.boolean().optional(),
   timestamp: import_zod.z.number().optional()

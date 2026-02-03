@@ -508,123 +508,57 @@ declare const animations: Record<string, CSSProperties>;
 
 declare const chatMessageSchema: z.ZodObject<{
     id: z.ZodString;
-    role: z.ZodEnum<["user", "assistant", "system"]>;
+    role: z.ZodEnum<{
+        system: "system";
+        user: "user";
+        assistant: "assistant";
+    }>;
     content: z.ZodString;
     timestamp: z.ZodOptional<z.ZodNumber>;
-}, "strip", z.ZodTypeAny, {
-    id: string;
-    role: "system" | "user" | "assistant";
-    content: string;
-    timestamp?: number | undefined;
-}, {
-    id: string;
-    role: "system" | "user" | "assistant";
-    content: string;
-    timestamp?: number | undefined;
-}>;
+}, z.core.$strip>;
 type ChatMessageSchema = z.infer<typeof chatMessageSchema>;
 declare const formFieldOptionSchema: z.ZodObject<{
     value: z.ZodString;
     label: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    label: string;
-    value: string;
-}, {
-    label: string;
-    value: string;
-}>;
+}, z.core.$strip>;
 declare const formFieldValidationSchema: z.ZodObject<{
     required: z.ZodOptional<z.ZodBoolean>;
     min: z.ZodOptional<z.ZodNumber>;
     max: z.ZodOptional<z.ZodNumber>;
     pattern: z.ZodOptional<z.ZodString>;
     message: z.ZodOptional<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    max?: number | undefined;
-    min?: number | undefined;
-    pattern?: string | undefined;
-    required?: boolean | undefined;
-    message?: string | undefined;
-}, {
-    max?: number | undefined;
-    min?: number | undefined;
-    pattern?: string | undefined;
-    required?: boolean | undefined;
-    message?: string | undefined;
-}>;
+}, z.core.$strip>;
 declare const formFieldSchema: z.ZodObject<{
     id: z.ZodString;
     label: z.ZodString;
-    type: z.ZodEnum<["text", "textarea", "number", "email", "date", "time", "datetime", "select", "radio", "checkbox", "slider"]>;
+    type: z.ZodEnum<{
+        number: "number";
+        select: "select";
+        textarea: "textarea";
+        time: "time";
+        text: "text";
+        checkbox: "checkbox";
+        radio: "radio";
+        date: "date";
+        email: "email";
+        datetime: "datetime";
+        slider: "slider";
+    }>;
     placeholder: z.ZodOptional<z.ZodString>;
     defaultValue: z.ZodOptional<z.ZodUnknown>;
     options: z.ZodOptional<z.ZodArray<z.ZodObject<{
         value: z.ZodString;
         label: z.ZodString;
-    }, "strip", z.ZodTypeAny, {
-        label: string;
-        value: string;
-    }, {
-        label: string;
-        value: string;
-    }>, "many">>;
+    }, z.core.$strip>>>;
     validation: z.ZodOptional<z.ZodObject<{
         required: z.ZodOptional<z.ZodBoolean>;
         min: z.ZodOptional<z.ZodNumber>;
         max: z.ZodOptional<z.ZodNumber>;
         pattern: z.ZodOptional<z.ZodString>;
         message: z.ZodOptional<z.ZodString>;
-    }, "strip", z.ZodTypeAny, {
-        max?: number | undefined;
-        min?: number | undefined;
-        pattern?: string | undefined;
-        required?: boolean | undefined;
-        message?: string | undefined;
-    }, {
-        max?: number | undefined;
-        min?: number | undefined;
-        pattern?: string | undefined;
-        required?: boolean | undefined;
-        message?: string | undefined;
-    }>>;
+    }, z.core.$strip>>;
     allowCustom: z.ZodOptional<z.ZodBoolean>;
-}, "strip", z.ZodTypeAny, {
-    id: string;
-    type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-    label: string;
-    defaultValue?: unknown;
-    placeholder?: string | undefined;
-    options?: {
-        label: string;
-        value: string;
-    }[] | undefined;
-    validation?: {
-        max?: number | undefined;
-        min?: number | undefined;
-        pattern?: string | undefined;
-        required?: boolean | undefined;
-        message?: string | undefined;
-    } | undefined;
-    allowCustom?: boolean | undefined;
-}, {
-    id: string;
-    type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-    label: string;
-    defaultValue?: unknown;
-    placeholder?: string | undefined;
-    options?: {
-        label: string;
-        value: string;
-    }[] | undefined;
-    validation?: {
-        max?: number | undefined;
-        min?: number | undefined;
-        pattern?: string | undefined;
-        required?: boolean | undefined;
-        message?: string | undefined;
-    } | undefined;
-    allowCustom?: boolean | undefined;
-}>;
+}, z.core.$strip>;
 type FormFieldSchema = z.infer<typeof formFieldSchema>;
 declare const quickReplyOptionSchema: z.ZodObject<{
     id: z.ZodString;
@@ -632,185 +566,57 @@ declare const quickReplyOptionSchema: z.ZodObject<{
     value: z.ZodOptional<z.ZodString>;
     icon: z.ZodOptional<z.ZodString>;
     primary: z.ZodOptional<z.ZodBoolean>;
-}, "strip", z.ZodTypeAny, {
-    id: string;
-    label: string;
-    value?: string | undefined;
-    icon?: string | undefined;
-    primary?: boolean | undefined;
-}, {
-    id: string;
-    label: string;
-    value?: string | undefined;
-    icon?: string | undefined;
-    primary?: boolean | undefined;
-}>;
+}, z.core.$strip>;
 declare const questionPayloadSchema: z.ZodObject<{
     id: z.ZodString;
     text: z.ZodString;
-    type: z.ZodEnum<["text", "form", "quick-reply"]>;
+    type: z.ZodEnum<{
+        form: "form";
+        text: "text";
+        "quick-reply": "quick-reply";
+    }>;
     fields: z.ZodOptional<z.ZodArray<z.ZodObject<{
         id: z.ZodString;
         label: z.ZodString;
-        type: z.ZodEnum<["text", "textarea", "number", "email", "date", "time", "datetime", "select", "radio", "checkbox", "slider"]>;
+        type: z.ZodEnum<{
+            number: "number";
+            select: "select";
+            textarea: "textarea";
+            time: "time";
+            text: "text";
+            checkbox: "checkbox";
+            radio: "radio";
+            date: "date";
+            email: "email";
+            datetime: "datetime";
+            slider: "slider";
+        }>;
         placeholder: z.ZodOptional<z.ZodString>;
         defaultValue: z.ZodOptional<z.ZodUnknown>;
         options: z.ZodOptional<z.ZodArray<z.ZodObject<{
             value: z.ZodString;
             label: z.ZodString;
-        }, "strip", z.ZodTypeAny, {
-            label: string;
-            value: string;
-        }, {
-            label: string;
-            value: string;
-        }>, "many">>;
+        }, z.core.$strip>>>;
         validation: z.ZodOptional<z.ZodObject<{
             required: z.ZodOptional<z.ZodBoolean>;
             min: z.ZodOptional<z.ZodNumber>;
             max: z.ZodOptional<z.ZodNumber>;
             pattern: z.ZodOptional<z.ZodString>;
             message: z.ZodOptional<z.ZodString>;
-        }, "strip", z.ZodTypeAny, {
-            max?: number | undefined;
-            min?: number | undefined;
-            pattern?: string | undefined;
-            required?: boolean | undefined;
-            message?: string | undefined;
-        }, {
-            max?: number | undefined;
-            min?: number | undefined;
-            pattern?: string | undefined;
-            required?: boolean | undefined;
-            message?: string | undefined;
-        }>>;
+        }, z.core.$strip>>;
         allowCustom: z.ZodOptional<z.ZodBoolean>;
-    }, "strip", z.ZodTypeAny, {
-        id: string;
-        type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-        label: string;
-        defaultValue?: unknown;
-        placeholder?: string | undefined;
-        options?: {
-            label: string;
-            value: string;
-        }[] | undefined;
-        validation?: {
-            max?: number | undefined;
-            min?: number | undefined;
-            pattern?: string | undefined;
-            required?: boolean | undefined;
-            message?: string | undefined;
-        } | undefined;
-        allowCustom?: boolean | undefined;
-    }, {
-        id: string;
-        type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-        label: string;
-        defaultValue?: unknown;
-        placeholder?: string | undefined;
-        options?: {
-            label: string;
-            value: string;
-        }[] | undefined;
-        validation?: {
-            max?: number | undefined;
-            min?: number | undefined;
-            pattern?: string | undefined;
-            required?: boolean | undefined;
-            message?: string | undefined;
-        } | undefined;
-        allowCustom?: boolean | undefined;
-    }>, "many">>;
+    }, z.core.$strip>>>;
     options: z.ZodOptional<z.ZodArray<z.ZodObject<{
         id: z.ZodString;
         label: z.ZodString;
         value: z.ZodOptional<z.ZodString>;
         icon: z.ZodOptional<z.ZodString>;
         primary: z.ZodOptional<z.ZodBoolean>;
-    }, "strip", z.ZodTypeAny, {
-        id: string;
-        label: string;
-        value?: string | undefined;
-        icon?: string | undefined;
-        primary?: boolean | undefined;
-    }, {
-        id: string;
-        label: string;
-        value?: string | undefined;
-        icon?: string | undefined;
-        primary?: boolean | undefined;
-    }>, "many">>;
+    }, z.core.$strip>>>;
     multiple: z.ZodOptional<z.ZodBoolean>;
     allowCustom: z.ZodOptional<z.ZodBoolean>;
     required: z.ZodOptional<z.ZodBoolean>;
-}, "strip", z.ZodTypeAny, {
-    id: string;
-    type: "form" | "text" | "quick-reply";
-    text: string;
-    multiple?: boolean | undefined;
-    required?: boolean | undefined;
-    options?: {
-        id: string;
-        label: string;
-        value?: string | undefined;
-        icon?: string | undefined;
-        primary?: boolean | undefined;
-    }[] | undefined;
-    allowCustom?: boolean | undefined;
-    fields?: {
-        id: string;
-        type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-        label: string;
-        defaultValue?: unknown;
-        placeholder?: string | undefined;
-        options?: {
-            label: string;
-            value: string;
-        }[] | undefined;
-        validation?: {
-            max?: number | undefined;
-            min?: number | undefined;
-            pattern?: string | undefined;
-            required?: boolean | undefined;
-            message?: string | undefined;
-        } | undefined;
-        allowCustom?: boolean | undefined;
-    }[] | undefined;
-}, {
-    id: string;
-    type: "form" | "text" | "quick-reply";
-    text: string;
-    multiple?: boolean | undefined;
-    required?: boolean | undefined;
-    options?: {
-        id: string;
-        label: string;
-        value?: string | undefined;
-        icon?: string | undefined;
-        primary?: boolean | undefined;
-    }[] | undefined;
-    allowCustom?: boolean | undefined;
-    fields?: {
-        id: string;
-        type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-        label: string;
-        defaultValue?: unknown;
-        placeholder?: string | undefined;
-        options?: {
-            label: string;
-            value: string;
-        }[] | undefined;
-        validation?: {
-            max?: number | undefined;
-            min?: number | undefined;
-            pattern?: string | undefined;
-            required?: boolean | undefined;
-            message?: string | undefined;
-        } | undefined;
-        allowCustom?: boolean | undefined;
-    }[] | undefined;
-}>;
+}, z.core.$strip>;
 type QuestionPayloadSchema = z.infer<typeof questionPayloadSchema>;
 declare const suggestionChipSchema: z.ZodObject<{
     id: z.ZodString;
@@ -818,205 +624,71 @@ declare const suggestionChipSchema: z.ZodObject<{
     action: z.ZodOptional<z.ZodString>;
     icon: z.ZodOptional<z.ZodString>;
     primary: z.ZodOptional<z.ZodBoolean>;
-}, "strip", z.ZodTypeAny, {
-    id: string;
-    label: string;
-    icon?: string | undefined;
-    primary?: boolean | undefined;
-    action?: string | undefined;
-}, {
-    id: string;
-    label: string;
-    icon?: string | undefined;
-    primary?: boolean | undefined;
-    action?: string | undefined;
-}>;
+}, z.core.$strip>;
 type SuggestionChipSchema = z.infer<typeof suggestionChipSchema>;
 declare const conversationTurnSchema: z.ZodObject<{
     id: z.ZodString;
     userMessage: z.ZodOptional<z.ZodString>;
     assistantMessages: z.ZodOptional<z.ZodArray<z.ZodObject<{
         id: z.ZodString;
-        role: z.ZodEnum<["user", "assistant", "system"]>;
+        role: z.ZodEnum<{
+            system: "system";
+            user: "user";
+            assistant: "assistant";
+        }>;
         content: z.ZodString;
         timestamp: z.ZodOptional<z.ZodNumber>;
-    }, "strip", z.ZodTypeAny, {
-        id: string;
-        role: "system" | "user" | "assistant";
-        content: string;
-        timestamp?: number | undefined;
-    }, {
-        id: string;
-        role: "system" | "user" | "assistant";
-        content: string;
-        timestamp?: number | undefined;
-    }>, "many">>;
+    }, z.core.$strip>>>;
     questions: z.ZodOptional<z.ZodArray<z.ZodObject<{
         id: z.ZodString;
         text: z.ZodString;
-        type: z.ZodEnum<["text", "form", "quick-reply"]>;
+        type: z.ZodEnum<{
+            form: "form";
+            text: "text";
+            "quick-reply": "quick-reply";
+        }>;
         fields: z.ZodOptional<z.ZodArray<z.ZodObject<{
             id: z.ZodString;
             label: z.ZodString;
-            type: z.ZodEnum<["text", "textarea", "number", "email", "date", "time", "datetime", "select", "radio", "checkbox", "slider"]>;
+            type: z.ZodEnum<{
+                number: "number";
+                select: "select";
+                textarea: "textarea";
+                time: "time";
+                text: "text";
+                checkbox: "checkbox";
+                radio: "radio";
+                date: "date";
+                email: "email";
+                datetime: "datetime";
+                slider: "slider";
+            }>;
             placeholder: z.ZodOptional<z.ZodString>;
             defaultValue: z.ZodOptional<z.ZodUnknown>;
             options: z.ZodOptional<z.ZodArray<z.ZodObject<{
                 value: z.ZodString;
                 label: z.ZodString;
-            }, "strip", z.ZodTypeAny, {
-                label: string;
-                value: string;
-            }, {
-                label: string;
-                value: string;
-            }>, "many">>;
+            }, z.core.$strip>>>;
             validation: z.ZodOptional<z.ZodObject<{
                 required: z.ZodOptional<z.ZodBoolean>;
                 min: z.ZodOptional<z.ZodNumber>;
                 max: z.ZodOptional<z.ZodNumber>;
                 pattern: z.ZodOptional<z.ZodString>;
                 message: z.ZodOptional<z.ZodString>;
-            }, "strip", z.ZodTypeAny, {
-                max?: number | undefined;
-                min?: number | undefined;
-                pattern?: string | undefined;
-                required?: boolean | undefined;
-                message?: string | undefined;
-            }, {
-                max?: number | undefined;
-                min?: number | undefined;
-                pattern?: string | undefined;
-                required?: boolean | undefined;
-                message?: string | undefined;
-            }>>;
+            }, z.core.$strip>>;
             allowCustom: z.ZodOptional<z.ZodBoolean>;
-        }, "strip", z.ZodTypeAny, {
-            id: string;
-            type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-            label: string;
-            defaultValue?: unknown;
-            placeholder?: string | undefined;
-            options?: {
-                label: string;
-                value: string;
-            }[] | undefined;
-            validation?: {
-                max?: number | undefined;
-                min?: number | undefined;
-                pattern?: string | undefined;
-                required?: boolean | undefined;
-                message?: string | undefined;
-            } | undefined;
-            allowCustom?: boolean | undefined;
-        }, {
-            id: string;
-            type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-            label: string;
-            defaultValue?: unknown;
-            placeholder?: string | undefined;
-            options?: {
-                label: string;
-                value: string;
-            }[] | undefined;
-            validation?: {
-                max?: number | undefined;
-                min?: number | undefined;
-                pattern?: string | undefined;
-                required?: boolean | undefined;
-                message?: string | undefined;
-            } | undefined;
-            allowCustom?: boolean | undefined;
-        }>, "many">>;
+        }, z.core.$strip>>>;
         options: z.ZodOptional<z.ZodArray<z.ZodObject<{
             id: z.ZodString;
             label: z.ZodString;
             value: z.ZodOptional<z.ZodString>;
             icon: z.ZodOptional<z.ZodString>;
             primary: z.ZodOptional<z.ZodBoolean>;
-        }, "strip", z.ZodTypeAny, {
-            id: string;
-            label: string;
-            value?: string | undefined;
-            icon?: string | undefined;
-            primary?: boolean | undefined;
-        }, {
-            id: string;
-            label: string;
-            value?: string | undefined;
-            icon?: string | undefined;
-            primary?: boolean | undefined;
-        }>, "many">>;
+        }, z.core.$strip>>>;
         multiple: z.ZodOptional<z.ZodBoolean>;
         allowCustom: z.ZodOptional<z.ZodBoolean>;
         required: z.ZodOptional<z.ZodBoolean>;
-    }, "strip", z.ZodTypeAny, {
-        id: string;
-        type: "form" | "text" | "quick-reply";
-        text: string;
-        multiple?: boolean | undefined;
-        required?: boolean | undefined;
-        options?: {
-            id: string;
-            label: string;
-            value?: string | undefined;
-            icon?: string | undefined;
-            primary?: boolean | undefined;
-        }[] | undefined;
-        allowCustom?: boolean | undefined;
-        fields?: {
-            id: string;
-            type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-            label: string;
-            defaultValue?: unknown;
-            placeholder?: string | undefined;
-            options?: {
-                label: string;
-                value: string;
-            }[] | undefined;
-            validation?: {
-                max?: number | undefined;
-                min?: number | undefined;
-                pattern?: string | undefined;
-                required?: boolean | undefined;
-                message?: string | undefined;
-            } | undefined;
-            allowCustom?: boolean | undefined;
-        }[] | undefined;
-    }, {
-        id: string;
-        type: "form" | "text" | "quick-reply";
-        text: string;
-        multiple?: boolean | undefined;
-        required?: boolean | undefined;
-        options?: {
-            id: string;
-            label: string;
-            value?: string | undefined;
-            icon?: string | undefined;
-            primary?: boolean | undefined;
-        }[] | undefined;
-        allowCustom?: boolean | undefined;
-        fields?: {
-            id: string;
-            type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-            label: string;
-            defaultValue?: unknown;
-            placeholder?: string | undefined;
-            options?: {
-                label: string;
-                value: string;
-            }[] | undefined;
-            validation?: {
-                max?: number | undefined;
-                min?: number | undefined;
-                pattern?: string | undefined;
-                required?: boolean | undefined;
-                message?: string | undefined;
-            } | undefined;
-            allowCustom?: boolean | undefined;
-        }[] | undefined;
-    }>, "many">>;
+    }, z.core.$strip>>>;
     questionAnswers: z.ZodOptional<z.ZodRecord<z.ZodString, z.ZodUnknown>>;
     suggestions: z.ZodOptional<z.ZodArray<z.ZodObject<{
         id: z.ZodString;
@@ -1024,128 +696,10 @@ declare const conversationTurnSchema: z.ZodObject<{
         action: z.ZodOptional<z.ZodString>;
         icon: z.ZodOptional<z.ZodString>;
         primary: z.ZodOptional<z.ZodBoolean>;
-    }, "strip", z.ZodTypeAny, {
-        id: string;
-        label: string;
-        icon?: string | undefined;
-        primary?: boolean | undefined;
-        action?: string | undefined;
-    }, {
-        id: string;
-        label: string;
-        icon?: string | undefined;
-        primary?: boolean | undefined;
-        action?: string | undefined;
-    }>, "many">>;
+    }, z.core.$strip>>>;
     isProactive: z.ZodOptional<z.ZodBoolean>;
     timestamp: z.ZodOptional<z.ZodNumber>;
-}, "strip", z.ZodTypeAny, {
-    id: string;
-    suggestions?: {
-        id: string;
-        label: string;
-        icon?: string | undefined;
-        primary?: boolean | undefined;
-        action?: string | undefined;
-    }[] | undefined;
-    timestamp?: number | undefined;
-    userMessage?: string | undefined;
-    assistantMessages?: {
-        id: string;
-        role: "system" | "user" | "assistant";
-        content: string;
-        timestamp?: number | undefined;
-    }[] | undefined;
-    questions?: {
-        id: string;
-        type: "form" | "text" | "quick-reply";
-        text: string;
-        multiple?: boolean | undefined;
-        required?: boolean | undefined;
-        options?: {
-            id: string;
-            label: string;
-            value?: string | undefined;
-            icon?: string | undefined;
-            primary?: boolean | undefined;
-        }[] | undefined;
-        allowCustom?: boolean | undefined;
-        fields?: {
-            id: string;
-            type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-            label: string;
-            defaultValue?: unknown;
-            placeholder?: string | undefined;
-            options?: {
-                label: string;
-                value: string;
-            }[] | undefined;
-            validation?: {
-                max?: number | undefined;
-                min?: number | undefined;
-                pattern?: string | undefined;
-                required?: boolean | undefined;
-                message?: string | undefined;
-            } | undefined;
-            allowCustom?: boolean | undefined;
-        }[] | undefined;
-    }[] | undefined;
-    questionAnswers?: Record<string, unknown> | undefined;
-    isProactive?: boolean | undefined;
-}, {
-    id: string;
-    suggestions?: {
-        id: string;
-        label: string;
-        icon?: string | undefined;
-        primary?: boolean | undefined;
-        action?: string | undefined;
-    }[] | undefined;
-    timestamp?: number | undefined;
-    userMessage?: string | undefined;
-    assistantMessages?: {
-        id: string;
-        role: "system" | "user" | "assistant";
-        content: string;
-        timestamp?: number | undefined;
-    }[] | undefined;
-    questions?: {
-        id: string;
-        type: "form" | "text" | "quick-reply";
-        text: string;
-        multiple?: boolean | undefined;
-        required?: boolean | undefined;
-        options?: {
-            id: string;
-            label: string;
-            value?: string | undefined;
-            icon?: string | undefined;
-            primary?: boolean | undefined;
-        }[] | undefined;
-        allowCustom?: boolean | undefined;
-        fields?: {
-            id: string;
-            type: "number" | "select" | "textarea" | "time" | "text" | "checkbox" | "radio" | "date" | "email" | "datetime" | "slider";
-            label: string;
-            defaultValue?: unknown;
-            placeholder?: string | undefined;
-            options?: {
-                label: string;
-                value: string;
-            }[] | undefined;
-            validation?: {
-                max?: number | undefined;
-                min?: number | undefined;
-                pattern?: string | undefined;
-                required?: boolean | undefined;
-                message?: string | undefined;
-            } | undefined;
-            allowCustom?: boolean | undefined;
-        }[] | undefined;
-    }[] | undefined;
-    questionAnswers?: Record<string, unknown> | undefined;
-    isProactive?: boolean | undefined;
-}>;
+}, z.core.$strip>;
 type ConversationTurnSchema = z.infer<typeof conversationTurnSchema>;
 
 export { ActionMenu, type ActionMenuProps, type Attachment, ChatHeader, type ChatHeaderProps, ChatInput, ChatInputArea, type ChatInputAreaProps, type ChatInputProps, type ChatMessage, type ChatMessageSchema, ChatPanel, type ChatPanelProps, ConversationInteractiveElements, type ConversationInteractiveElementsProps, type ConversationListProps, type ConversationTurnSchema, type EditModeInputProps, EmptyState, type EmptyStateProps, type FileAttachment, FileAttachmentBadge, type FileAttachmentBadgeProps, type FormFieldSchema, type LibraryAttachment, MarkdownMessage, type MessageBubbleProps, PlanningStatus, type PlanningStatusProps, QuestionForm, type QuestionFormProps$1 as QuestionFormProps, type QuestionPayloadSchema, type SelectedElement, type SuggestionChipSchema, SuggestionChips, type SuggestionChipsProps, TypingIndicator, UnifiedProgressIndicator, type UnifiedProgressIndicatorProps, animations, breakpoints, chatMessageSchema, colors, conversationTurnSchema, duration, easing, formFieldOptionSchema, formFieldSchema, formFieldValidationSchema, glass, isFileAttachment, isLibraryAttachment, keyframes, panelDimensions, questionPayloadSchema, quickReplyOptionSchema, radii, shadows, spacing, suggestionChipSchema, transitions, typography, useChatAttachments, zIndex };

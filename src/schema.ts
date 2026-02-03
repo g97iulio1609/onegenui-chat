@@ -109,7 +109,7 @@ export const conversationTurnSchema = z.object({
   userMessage: z.string().optional(),
   assistantMessages: z.array(chatMessageSchema).optional(),
   questions: z.array(questionPayloadSchema).optional(),
-  questionAnswers: z.record(z.unknown()).optional(),
+  questionAnswers: z.record(z.string(), z.unknown()).optional(),
   suggestions: z.array(suggestionChipSchema).optional(),
   isProactive: z.boolean().optional(),
   timestamp: z.number().optional(),
