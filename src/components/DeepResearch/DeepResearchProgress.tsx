@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useMemo } from "react";
+import { memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
@@ -31,6 +31,13 @@ const PHASE_ICONS: Record<string, typeof Search> = {
   Analysis: Search,
   Synthesis: FileText,
   Visualization: FileText,
+  Decomposing: Search,
+  Searching: FileText,
+  Ranking: FileText,
+  Extracting: FileText,
+  Analyzing: Search,
+  Synthesizing: FileText,
+  Visualizing: FileText,
 };
 
 export const DeepResearchProgress = memo(function DeepResearchProgress({
@@ -47,7 +54,7 @@ export const DeepResearchProgress = memo(function DeepResearchProgress({
     effortLevel,
     status,
     startTime,
-    estimatedTime,
+    estimatedTimeMs,
     progress,
     currentPhase,
     phases,
@@ -57,7 +64,10 @@ export const DeepResearchProgress = memo(function DeepResearchProgress({
   } = activeResearch;
 
   const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-  const remainingTime = Math.max(0, estimatedTime - elapsedTime);
+  const remainingTime = Math.max(
+    0,
+    Math.floor(estimatedTimeMs / 1000) - elapsedTime,
+  );
 
   const isComplete = status === "complete";
   const isError = status === "error";
@@ -108,7 +118,9 @@ export const DeepResearchProgress = memo(function DeepResearchProgress({
       {/* Progress Bar */}
       <div className="px-4 py-3 space-y-2">
         <div className="flex items-center justify-between text-xs">
-          <span className="text-muted-foreground">{currentPhase}</span>
+          <span className="text-muted-foreground">
+            {formatPhaseLabel(currentPhase)}
+          </span>
           <span className="text-foreground font-medium">{progress}%</span>
         </div>
         <div className="h-2 bg-muted rounded-full overflow-hidden">
@@ -164,9 +176,10 @@ const PhaseList = memo(function PhaseList({
   return (
     <div className="px-4 py-3 border-t border-border space-y-2">
       {phases.map((phase) => {
-        const Icon = PHASE_ICONS[phase.name] || Search;
+        const phaseLabel = formatPhaseLabel(phase.label);
+        const Icon = PHASE_ICONS[phaseLabel] || Search;
         return (
-          <div key={phase.name} className="flex items-center gap-2">
+          <div key={phase.id} className="flex items-center gap-2">
             <PhaseIcon status={phase.status} Icon={Icon} />
             <span
               className={cn(
@@ -178,7 +191,7 @@ const PhaseList = memo(function PhaseList({
                     : "text-muted-foreground/60",
               )}
             >
-              {phase.name}
+              {phaseLabel}
             </span>
             {phase.status === "running" && (
               <span className="text-[10px] text-primary">
@@ -321,6 +334,13 @@ function formatTime(seconds: number): string {
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
   return `${mins}m ${secs}s`;
+}
+
+function formatPhaseLabel(phase: string): string {
+  if (!phase) return "Research";
+  return phase
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 // Need useState for SourceList
